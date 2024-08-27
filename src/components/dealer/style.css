@@ -47,3 +47,7 @@
  .nav-link.icon:hover::after{
     width: 0;
  }
+
+ .bi-person-circle, .bi-bell{
+   margin: 0!important;
+ }

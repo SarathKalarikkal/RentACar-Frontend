@@ -1,0 +1,9 @@
+.inventory-header{
+    background-color: grey;
+    padding: 100px 0;
+    text-align: center;
+}
+.inventory-header h1{
+  color: white;
+  margin: 0;
+}

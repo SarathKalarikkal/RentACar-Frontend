@@ -37,10 +37,15 @@ const HomePage = () => {
           <div className="carousel-inner">
             <div className="carousel-item active">
               <img
-                src={"../src/assets/carimage.jpg"}
+                src={"../src/assets/newsletter-img.jpg"}
                 className="d-block w-100"
                 alt="..."
               />
+              <div className="hero-content">
+                 <h1>RENT YOUR <br />FAVOURITE CAR</h1>
+                 <h4>FAST & EASY WAY | BETTER DRIVE</h4>
+                 <button>LEARN MORE</button>
+              </div>
             </div>
             <div className="carousel-item">
               <img
@@ -48,14 +53,13 @@ const HomePage = () => {
                 className="d-block w-100"
                 alt="..."
               />
+               <div className="hero-content">
+                 <h1>RENT YOUR <br />FAVOURITE CAR</h1>
+                 <h4>FAST & EASY WAY | BETTER DRIVE</h4>
+                 <button>LEARN MORE</button>
+              </div>
             </div>
-            <div className="carousel-item">
-              <img
-                src={"../src/assets/carimage.jpg"}
-                className="d-block w-100"
-                alt="..."
-              />
-            </div>
+            
           </div>
           <button
             className="carousel-control-prev"

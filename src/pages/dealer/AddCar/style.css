@@ -1,0 +1,18 @@
+.addCar-header{
+    background-color: grey;
+    padding: 100px 0;
+    text-align: center;
+}
+.addCar-header h1{
+  color: white;
+  margin: 0;
+}
+#imagePreview {
+    margin-top: 20px;
+}
+
+#imagePreview img {
+    max-width: 200px;
+    height: auto;
+    margin-right: 10px;
+}

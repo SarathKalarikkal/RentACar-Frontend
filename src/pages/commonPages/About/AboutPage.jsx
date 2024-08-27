@@ -49,7 +49,7 @@ const AboutPage = () => {
             <div className="col-lg-4">
                 <div className="row g-4">
                     <div className="col-lg-12">
-                        <div className="features-box">
+                        <div className="features-box one">
                             <div className="content">
                                 <h2>01</h2>
                             <h6>heading</h6>
@@ -58,7 +58,7 @@ const AboutPage = () => {
                         </div>
                     </div>
                     <div className="col-lg-12">
-                        <div className="features-box">
+                        <div className="features-box two">
                            <div className="content">
                             <h2>02</h2>
                             <h6>heading</h6>
@@ -87,7 +87,7 @@ const AboutPage = () => {
                         </div>
                     </div>
                     <div className="col-lg-12">
-                        <div className="features-box">
+                        <div className="features-box four">
                            <div className="content">
                             <h2>04</h2>
                             <h6>heading</h6>
