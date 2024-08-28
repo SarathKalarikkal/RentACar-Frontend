@@ -119,7 +119,7 @@ const HomePage = () => {
            
               <form>
                  <input type="text" name="" id="" placeholder="Enter your email address"/>
-                 <button>Subscribe</button>
+                 <button className="main-btn">Subscribe</button>
               </form>
 
          </div>

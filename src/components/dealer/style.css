@@ -48,6 +48,7 @@
     width: 0;
  }
 
- .bi-person-circle, .bi-bell{
+.bi-person-circle.dealer,  .bi-bell.dealer{
    margin: 0!important;
- }
+}
+

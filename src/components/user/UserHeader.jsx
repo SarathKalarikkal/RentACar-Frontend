@@ -45,9 +45,9 @@ const activeLink = (path)=>{
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li>
+        {/* <li>
           <i className={theme ? 'bi bi-moon' : 'bi bi-sun'}onClick={handleTheme}></i>
-        </li>
+        </li> */}
         <li className="nav-item">
           <Link className={`nav-link ${activeLink('/user') ? 'active' : ''}`} aria-current="page" to={'/user'}>Home</Link>
         </li>

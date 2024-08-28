@@ -1,0 +1,16 @@
+.manageRental-header{
+    background:  linear-gradient(180deg,
+    rgba(0, 0, 0, 0.607),
+    rgba(0, 0, 0, 0.699)), 
+      url(
+  ../../../assets/manage-car.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    padding: 100px 0;
+    text-align: center;
+}
+.manageRental-header h1{
+  color: white;
+  margin: 0;
+}

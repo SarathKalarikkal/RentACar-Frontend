@@ -1,9 +1,23 @@
 .inventory-header{
-    background-color: grey;
+  background:  linear-gradient(180deg,
+  rgba(0, 0, 0, 0.607),
+  rgba(0, 0, 0, 0.699)), 
+    url(
+../../../assets/inventory-img.jpg);
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
     padding: 100px 0;
     text-align: center;
 }
 .inventory-header h1{
   color: white;
   margin: 0;
+}
+
+.right.inventory{
+  padding: 10px 20px;
+}
+.right.inventory p{
+  line-height: 24px;
 }

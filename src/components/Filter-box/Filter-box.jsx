@@ -60,14 +60,14 @@ const Filterbox = () => {
             {/* Add more options here */}
           </select>
         </div>
-        <button type="submit" className="btn-search small">
+        <button type="submit" className="btn-search main-btn small">
           SEARCH
         </button>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-lg-4 mt-2 bottom-sec">
         <span className="text-muted">Available 30 cars</span>
         <div className="d-flex">
-          <button type="submit" className="btn-search large">
+          <button type="submit" className="btn-search main-btn large">
             SEARCH
           </button>
           <button type="reset" className="btn btn-link btn-reset ms-3">

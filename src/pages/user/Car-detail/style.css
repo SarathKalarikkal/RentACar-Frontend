@@ -102,11 +102,7 @@
 }
 .Message-sec form button{
     margin-top: 10px;
-    border: 0;
-   outline: 0;
    padding: 8px 16px;
-   background: var(--brand-color);
-   font-weight: 600;
 }
 
 

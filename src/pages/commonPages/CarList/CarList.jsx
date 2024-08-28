@@ -105,7 +105,7 @@ const handleViewMod=()=>{
             </select>
           </div>
           {/* Reset Filter Button */}
-          <button className="btn btn-warning w-100">SEARCH</button>
+          <button className="btn main-btn w-100">SEARCH</button>
           <button type="reset" className="reset-button">
             <i className="bi bi-arrow-clockwise me-1" />
             Reset all

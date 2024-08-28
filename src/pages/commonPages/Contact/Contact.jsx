@@ -92,7 +92,7 @@ const Contact = () => {
                     placeholder="Email Address"
                   />
                   <textarea name="" id="" rows={5} cols={40} placeholder="Message"></textarea>
-                  <button>SEND</button>
+                  <button className="main-btn">SEND</button>
                 </form>
               </div>
             </div>

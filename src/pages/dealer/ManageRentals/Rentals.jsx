@@ -3,7 +3,13 @@ import "./style.css"
 
 const Rentals = () => {
   return (
-    <div>Rentals</div>
+    <>
+     <section className='manageRental-header'>
+      <div className="container">
+         <h1>MANAGE RENTALS</h1>
+      </div>
+     </section>
+    </>
   )
 }
 

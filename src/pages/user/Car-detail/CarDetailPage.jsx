@@ -142,7 +142,7 @@ const CarDetailPage = () => {
                         rows={4}
                         placeholder="Message"
                       ></textarea>
-                      <button type="submit">SEND</button>
+                      <button type="submit" className="main-btn">SEND</button>
                     </form>
                   </div>
                 </div>

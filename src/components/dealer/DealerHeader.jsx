@@ -45,9 +45,9 @@ const DealerHeader = () => {
  </button>
  <div className="collapse navbar-collapse" id="navbarSupportedContent">
    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-     <li>
+     {/* <li>
        <i className={theme ? 'bi bi-moon' : 'bi bi-sun'}onClick={handleTheme}></i>
-     </li>
+     </li> */}
      <li className="nav-item">
        <Link className={`nav-link ${activeLink('/dealer') ? 'active' : ''}`} aria-current="page" to={'/dealer'}>Home</Link>
      </li>
@@ -64,10 +64,10 @@ const DealerHeader = () => {
        <Link className={`nav-link ${activeLink('/dealer/managerentals') ? 'active' : ''}`} to={'/dealer/managerentals'}>Manage Rentals</Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/dealer/profile') ? 'active' : ''}`} to={'/dealer/profile'}><i class="bi bi-person-circle"></i></Link>
+       <Link className={`nav-link ${activeLink('/dealer/profile') ? 'active' : ''}`} to={'/dealer/profile'}><i class="bi bi-person-circle dealer"></i></Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}><i className="bi bi-bell"></i></Link>
+       <Link className={`nav-link ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}><i className="bi bi-bell dealer"></i></Link>
      </li>
      <li className="nav-item">
        <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`} to={'/'}>Logout</Link>
