@@ -1,7 +1,18 @@
 import React from 'react'
 import "./style.css"
+import { useSelector } from 'react-redux'
+import { formatDate } from '../../../math/formatDate'
 
 const UserProfile = () => {
+
+const user =  useSelector((state)=>state.user.userInfo)
+console.log("user details",user)
+
+const Createdate = user?.updatedAt
+
+const formattedDate = formatDate(Createdate);
+
+
   return (
     <>
    <div className="container my-5">
@@ -17,8 +28,8 @@ const UserProfile = () => {
           />
         </div>
         <div className="profile-usertitle">
-          <div className="profile-usertitle-name">John Doe</div>
-          <div className="profile-usertitle-email">johndoe@example.com</div>
+          <div className="profile-usertitle-name">{user?.name}</div>
+          <div className="profile-usertitle-email">{user?.email}</div>
         </div>
         <div className="profile-userbuttons">
           <a href="#" className="btn btn-outline-primary btn-sm">
@@ -43,24 +54,24 @@ const UserProfile = () => {
             <div className="row">
               <div className="col-md-6">
                 <p>
-                  <strong>Name:</strong> John Doe
+                  <strong>Name:</strong> {user?.name}
                 </p>
                 <p>
-                  <strong>Email:</strong> johndoe@example.com
+                  <strong>Email:</strong> {user?.email}
                 </p>
                 <p>
-                  <strong>Mobile:</strong> +1234567890
+                  <strong>Mobile:</strong> {user?.mobile}
                 </p>
               </div>
               <div className="col-md-6">
                 <p>
-                  <strong>Address:</strong> 1234 Main St, City, State
+                  <strong>Address:</strong>  {user?.location}
                 </p>
                 <p>
-                  <strong>Role:</strong> User
+                  <strong>Role:</strong>  {user?.role}
                 </p>
                 <p>
-                  <strong>Account Created:</strong> January 1, 2024
+                  <strong>Account Created:</strong> {formattedDate}
                 </p>
               </div>
             </div>

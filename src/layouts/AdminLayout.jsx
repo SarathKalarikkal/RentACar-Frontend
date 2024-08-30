@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Footer from '../components/footer/Footer'
 
 import ThemeChanger from '../components/Theme/ThemeChanger'
-import AdminHeader from '../components/Admin/AdminHeader'
+import AdminHeader from '../components/Admin/AdminSidebar'
 
 
 export const AdminLayout = () => {
@@ -12,7 +12,6 @@ export const AdminLayout = () => {
         <AdminHeader/>
         <ThemeChanger />
         <Outlet />
-        <Footer />
     </div>
   )
 }

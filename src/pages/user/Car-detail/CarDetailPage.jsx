@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import NavTab from "../../../components/NavTab/NavTab";
+import { useParams } from "react-router-dom";
+import axiosInstance from "../../../config/axiosInstance";
+import { useDispatch, useSelector } from "react-redux";
+import { setCarDetails } from "../../../Redux/features/carSlice";
 
 const CarDetailPage = () => {
+
+  const carDetail = useSelector((state)=>state.car.carDetails)
+  const dispatch = useDispatch()
+
+  const params = useParams()
+
+const carID = params.id
+
+const fetchCarDetail = async()=>{
+  try {
+    const response = await axiosInstance.get(`/car/${carID}`)
+    const carData =  response.data
+    dispatch(setCarDetails(carData.data))
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+useEffect(()=>{
+  fetchCarDetail()
+},[carID])
+
+console.log("kklnlkjnj",carDetail);
+
   return (
     <>
       <section className="car-detail-header">
@@ -40,9 +69,9 @@ const CarDetailPage = () => {
                     <tbody>
                       <tr>
                         <th>Make</th>
-                        <td>Audi</td>
+                        <td>{carDetail?.make}</td>
                         <th>Model</th>
-                        <td>A4</td>
+                        <td>{carDetail?.name}</td>
                         <th>Available</th>
                         <td>Yes</td>
                       </tr>
@@ -50,17 +79,17 @@ const CarDetailPage = () => {
                         <th>Year</th>
                         <td>2019</td>
                         <th>Mileage</th>
-                        <td>20km</td>
+                        <td>{carDetail?.mileage}km</td>
                         <th>Fuel</th>
-                        <td>Electric</td>
+                        <td>{carDetail?.fuelType}</td>
                       </tr>
                       <tr>
                         <th>Transmission</th>
-                        <td>Automatic</td>
+                        <td>{carDetail?.transmission}</td>
                         <th>Color</th>
-                        <td>Blue</td>
+                        <td>{carDetail?.color}</td>
                         <th>Seating</th>
-                        <td>5</td>
+                        <td>{carDetail?.seating}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -69,7 +98,7 @@ const CarDetailPage = () => {
               <div className="row">
                 <div className="description-box">
                   <div className="col-lg-12">
-                      <NavTab />
+                      <NavTab  carDetail={carDetail}/>
                   </div>
                 </div>
               </div>
@@ -77,7 +106,7 @@ const CarDetailPage = () => {
             <div className="col-12 col-md-4">
               <div className="dealer-info-sec">
                 <div className="payment-sec">
-                  <div className="right-header">PRICE : 200 RS</div>
+                  <div className="right-header">PRICE : {carDetail?.rentPerHour} RS</div>
                   <div className="payment-available">
                     <img
                       className="paypal"
@@ -105,7 +134,7 @@ const CarDetailPage = () => {
                       <img src={"../../src/assets/dealerImage.jpg"} alt="" />
                     </div>
                     <div className="dealer-content">
-                      <h4>John Samual</h4>
+                      <h4>{carDetail?.dealer.name}</h4>
                       <span>Member since May 2019</span>
                       <div className="dealer-soc">
                         <i className="bi bi-facebook"></i>
@@ -116,7 +145,7 @@ const CarDetailPage = () => {
                     <div className="dealer-contact">
                       <i className="bi bi-telephone-fill"></i>
                       <label htmlFor="">Conatact</label>
-                      <span>+91 9876543221</span>
+                      <span>+91 {carDetail?.dealer.phone}</span>
                     </div>
                   </div>
                 </div>

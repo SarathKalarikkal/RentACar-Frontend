@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 
-const CarListView = () => {
+const CarListView = ({car}) => {
   return (
     <div className="car-box-list-view">
     <div className="list-rating-wrap">
@@ -18,12 +18,10 @@ const CarListView = () => {
     </div>
     <div className="right">
       <div className="car-list-content">
-        <h6 className="title">FORD FOCUS</h6>
-        <h5 className="head">1.5 Eco Blue ST-line style 115c</h5>
+        <h6 className="title">{car?.make}</h6>
+        <h5 className="head">{car?.name}</h5>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Harum ducimus illo sapiente blanditiis vitae consequatur
-          iste expedita animi reiciendis veniam.
+         {car?.description}
         </p>
       </div>
       <div className="list-bottom">
@@ -34,15 +32,15 @@ const CarListView = () => {
           </div>
           <div className="model-type">
             <img src={"../src/assets/gear.png"} alt="" />
-            <span>Manual</span>
+            <span>{car?.transmission}</span>
           </div>
           <div className="model-type">
             <img src={"../src/assets/speed.png"} alt="" />
-            <span>Diesel</span>
+            <span>{car?.fuelType}</span>
           </div>
           <div className="model-type">
             <img src={"../src/assets/seat.png"} alt="" />
-            <span>5</span>
+            <span>{car?.seating}</span>
           </div>
         </div>
       </div>

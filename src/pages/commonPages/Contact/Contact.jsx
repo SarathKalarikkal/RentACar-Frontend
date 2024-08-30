@@ -1,7 +1,24 @@
 import React from "react";
 import "./style.css";
+import { useForm } from "react-hook-form";
+import axiosInstance from "../../../config/axiosInstance";
+import toast from "react-hot-toast";
 
 const Contact = () => {
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axiosInstance.post("/message/create", data);
+      console.log(response);
+
+      toast.success(response.data.data.message);
+      reset(); // Reset the form fields after submission
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <>
       <section className="contact-header">
@@ -16,7 +33,7 @@ const Contact = () => {
             <div className="col-md-4">
               <div className="contact-box">
                 <div className="icon-box">
-                  <i class="bi bi-geo-alt-fill"></i>
+                  <i className="bi bi-geo-alt-fill"></i>
                 </div>
                 <div className="contact-box-content">
                   <h4>HEAD OFFICE</h4>
@@ -30,7 +47,7 @@ const Contact = () => {
             <div className="col-md-4">
               <div className="contact-box">
                 <div className="icon-box">
-                  <i class="bi bi-telephone-fill"></i>
+                  <i className="bi bi-telephone-fill"></i>
                 </div>
                 <div className="contact-box-content">
                   <h4>PHONE</h4>
@@ -42,7 +59,7 @@ const Contact = () => {
             <div className="col-md-4">
               <div className="contact-box">
                 <div className="icon-box">
-                  <i class="bi bi-envelope-at-fill"></i>
+                  <i className="bi bi-envelope-at-fill"></i>
                 </div>
                 <div className="contact-box-content">
                   <h4>EMAIL</h4>
@@ -78,21 +95,32 @@ const Contact = () => {
                   adipisci.
                 </p>
 
-                <form action="">
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <input
                     type="text"
-                    name=""
-                    id=""
+                    name="name"
+                    id="name"
                     placeholder="Enter your name"
+                    {...register("name")}
                   />
                   <input
-                    type="text"
-                    name=""
-                    id=""
+                    type="email"
+                    name="email"
+                    id="email"
                     placeholder="Email Address"
+                    {...register("email")}
                   />
-                  <textarea name="" id="" rows={5} cols={40} placeholder="Message"></textarea>
-                  <button className="main-btn">SEND</button>
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows={5}
+                    cols={40}
+                    placeholder="Message"
+                    {...register("message")}
+                  ></textarea>
+                  <button type="submit" className="main-btn">
+                    SEND
+                  </button>
                 </form>
               </div>
             </div>

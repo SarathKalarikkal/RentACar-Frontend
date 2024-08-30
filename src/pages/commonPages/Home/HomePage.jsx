@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import Filterbox from "../../../components/Filter-box/Filter-box";
 import CarCard from "../../../components/carCard/CarCard";
+import { useDispatch, useSelector } from "react-redux";
+import axiosInstance from "../../../config/axiosInstance";
+import { setCarList } from "../../../Redux/features/carSlice";
 
 const HomePage = () => {
+
+const {carList} = useSelector((state) => state.car);
+const dispatch = useDispatch()
+
+
+console.log(carList)
+
+const fetchCars = async()=>{
+  try {
+      const response = await axiosInstance.get('/car/list')
+      const CarsData = response.data
+      dispatch(setCarList(CarsData.data))
+      console.log("cardata",CarsData.data)
+  } catch (error) {
+    console.loga(error)
+  }
+}
+
+useEffect(()=>{
+  fetchCars()
+}, [])
+
+console.log("latest",carList)
+
+
+
+
+
+
   return (
     <>
       <div className="hero-sec">
@@ -84,30 +116,88 @@ const HomePage = () => {
 
       <div className="filter-sec">
         <div className="container">
-          <Filterbox />
+          <Filterbox carList={carList}/>
         </div>
       </div>
 
       <section className="latest-offers">
-        <div className="container">
-          <div className="latest-head">
-            <h2>LATEST OFFERS</h2>
-            <hr />
-          </div>
-       
-         <div className="row mt-5">
-            <div className="col-12 col-md-6 col-lg-4">
-                <CarCard />
-             </div>
-            <div className="col-12 col-md-6 col-lg-4">
-                <CarCard />
-             </div>
-            <div className="col-12 col-md-6 col-lg-4">
-                <CarCard />
-             </div>
-          </div>
-        </div>
-      </section>
+  <div className="container">
+    <div className="latest-head">
+      <h2>LATEST OFFERS</h2>
+      <hr />
+    </div>
+    <div id="carouselExampleIndicators" className="carousel slide">
+      <div className="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to={0}
+          className="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        />
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to={1}
+          aria-label="Slide 2"
+        />
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to={2}
+          aria-label="Slide 3"
+        />
+      </div>
+      <div className="carousel-inner">
+        {/* Ensure `latest` is an array and has enough items */}
+        {carList && carList.length > 0 && (
+          <>
+            <div className="carousel-item active">
+              <div className="row mt-5">
+                {carList.slice(0, 3).map((car, index) => (
+                  <div key={index} className="col-12 col-md-6 col-lg-4">
+                    <CarCard car={car} />
+                  </div>
+                ))}
+              </div>
+            </div>
+            {carList.length > 3 && (
+              <div className="carousel-item">
+                <div className="row mt-5">
+                  {carList.slice(3, 6).map((car, index) => (
+                    <div key={index} className="col-12 col-md-6 col-lg-4">
+                      <CarCard car={car} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      <button
+        className="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev"
+      >
+        <span className="carousel-control-prev-icon" aria-hidden="true" />
+        <span className="visually-hidden">Previous</span>
+      </button>
+      <button
+        className="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next"
+      >
+        <span className="carousel-control-next-icon" aria-hidden="true" />
+        <span className="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section>
+
       
       <section className="newsletter">
          <div className="container">
@@ -132,19 +222,75 @@ const HomePage = () => {
             <hr />
           </div>
        
-         <div className="row mt-5">
-          <div className="col-12 col-md-6 col-lg-4">
-             <CarCard />
-          </div>
-          <div className="col-12 col-md-6 col-lg-4">
-             <CarCard />
-          </div>
-          <div className="col-12 col-md-6 col-lg-4">
-             <CarCard />
-          </div>
-           
-           
-          </div>
+          <div id="carouselExampleIndicators" className="carousel slide">
+      <div className="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to={0}
+          className="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        />
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to={1}
+          aria-label="Slide 2"
+        />
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to={2}
+          aria-label="Slide 3"
+        />
+      </div>
+      <div className="carousel-inner">
+        {/* Ensure `latest` is an array and has enough items */}
+        {carList && carList.length > 0 && (
+          <>
+            <div className="carousel-item active">
+              <div className="row mt-5">
+                {carList.slice(6, 9).map((car, index) => (
+                  <div key={index} className="col-12 col-md-6 col-lg-4">
+                    <CarCard car={car} />
+                  </div>
+                ))}
+              </div>
+            </div>
+            {carList.length > 3 && (
+              <div className="carousel-item">
+                <div className="row mt-5">
+                  {carList.slice(9, 12).map((car, index) => (
+                    <div key={index} className="col-12 col-md-6 col-lg-4">
+                      <CarCard car={car} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      <button
+        className="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev"
+      >
+        <span className="carousel-control-prev-icon" aria-hidden="true" />
+        <span className="visually-hidden">Previous</span>
+      </button>
+      <button
+        className="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next"
+      >
+        <span className="carousel-control-next-icon" aria-hidden="true" />
+        <span className="visually-hidden">Next</span>
+      </button>
+    </div>
         </div>
       </section>
 

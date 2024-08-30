@@ -1,16 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./style.css"
 import CarCard from '../../../components/carCard/CarCard'
 import CarListView from '../../../components/carListView/CarListView'
+import axiosInstance from '../../../config/axiosInstance'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCarList } from '../../../Redux/features/carSlice'
 
 
 const CarList = () => {
 
 const [boxView, setBoxView] = useState(true)
 
+const dispatch = useDispatch()
+const carList = useSelector((state)=>state.car.carList)
+
 const handleViewMod=()=>{
     setBoxView(!boxView)
 }
+
+
+const fetchCarlist = async()=>{
+  try {
+    const response = await axiosInstance.get('/car/list');
+    const cars = response.data
+    dispatch(setCarList(cars.data));
+  } catch (err) {
+    setCarList(err);
+  }
+}
+
+useEffect(()=>{
+  fetchCarlist()
+},[])
+
+
+console.log("carlist", carList);
+
+
+
 
   return (
    <>
@@ -37,12 +64,20 @@ const handleViewMod=()=>{
           <div className="filter-group">
             <label htmlFor="make">BY MAKE</label>
             <select id="make" className="form-select">
-              <option>All make</option>
-              {/* Add more options as needed */}
+            <option  default>All Make</option>
+             {
+              carList?.map((car)=>{
+                return  <option>{car.make}</option>
+              })
+             }
             </select>
             <select id="model" className="form-select">
-              <option>All model</option>
-              {/* Add more options as needed */}
+            <option  default>All Model</option>
+             {
+              carList?.map((car)=>{
+                return  <option>{car.name}</option>
+              })
+             }
             </select>
           </div>
           {/* Price Range Filter */}
@@ -86,15 +121,23 @@ const handleViewMod=()=>{
           <div className="filter-group">
             <label htmlFor="fuelType">FUEL TYPE</label>
             <select id="fuelType" className="form-select">
-              <option>All models</option>
-              {/* Add more options as needed */}
+            <option  default>All Fuel Types</option>
+             {
+              carList?.map((car)=>{
+                return  <option>{car.fuelType}</option>
+              })
+             }
             </select>
           </div>
           <div className="filter-group">
             <label htmlFor="transmission">TRANSMISSION RANGE</label>
             <select id="transmission" className="form-select">
-              <option>All models</option>
-              {/* Add more options as needed */}
+            <option  default>All transmissions</option>
+             {
+              carList?.map((car)=>{
+                return  <option>{car.transmission}</option>
+              })
+             }
             </select>
           </div>
           <div className="filter-group">
@@ -127,6 +170,8 @@ const handleViewMod=()=>{
             <div className="col-6 col-md-3">
               <select className="form-select">
                 <option selected="">SORT</option>
+                <option selected="">Low to high</option>
+                <option selected="">High to low</option>
                 {/* Add sorting options as needed */}
               </select>
             </div>
@@ -149,17 +194,28 @@ const handleViewMod=()=>{
           {
             boxView ? 
             ( <div className="row">
-                <div className="col-12 col-md-6">
-                    <CarCard />
-                </div>
-                <div className="col-12 col-md-6">
-                    <CarCard />
-                </div>
-           </div>)
+                
+                {
+                          carList.map((car) => (
+                            <div className="col-12 col-md-6" key={car?.id}> 
+                              <CarCard car={car} />
+                            </div>
+                          ))
+                        }
+           </div>
+           )
             :
-            ( <div className="col-md-12">
-                <CarListView />
-             </div>)
+            (
+              <div className="row">
+                {
+                  carList.map((car) => (
+                    <div className="col-md-12" key={car?.id}> 
+                      <CarListView car={car} />
+                    </div>
+                  ))
+                }
+              </div>
+            )
           }
 
         </div>

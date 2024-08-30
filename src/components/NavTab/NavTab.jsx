@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./style.css";
 
-const VehicleTabs = () => {
+const VehicleTabs = ({carDetail}) => {
   const [activeTab, setActiveTab] = useState('description');
 
   const handleTabClick = (tab) => {
@@ -41,8 +41,7 @@ const VehicleTabs = () => {
         {activeTab === 'description' && (
           <div className="tab-pane fade show active" role="tabpanel">
             <p className='des'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse fugit et dolore ipsa natus ratione ducimus aliquid quos, nisi odit voluptates officiis expedita quibusdam optio omnis ipsam architecto animi vitae.
-              Distinctio a vel facere quasi dolor aperiam dolore laborum est veniam laboriosam libero ex temporibus, laudantium fugiat quis id earum animi! Assumenda ratione corrupti iusto aliquam inventore non nisi molestias!
+             {carDetail?.description}
             </p>
           </div>
         )}

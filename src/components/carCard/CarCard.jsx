@@ -2,9 +2,12 @@ import React from 'react'
 import './style.css'
 import { Link } from 'react-router-dom'
 
-const CarCard = () => {
+const CarCard = ({car}) => {
+
+
+
   return (
-          <Link to={'/user/car-detail/:id'}>
+          <Link to={`/user/car-detail/${car?._id}`}>
               <div className="car-box">
                 <div className="top">
                   <div className="top-left">
@@ -21,11 +24,11 @@ const CarCard = () => {
                 </div>
                 <div className="bottom">
                   <div className="model">
-                    <span>FORD FOCUS</span>
+                    <span>{car?.make}</span>
                     <div>
-                      <p>1.5 Eco Blue ST-line style 115c</p>
+                      <p>{car?.name}</p>
                       <p className="rate">
-                        1200 <span>/hr</span>
+                      {car?.rentPerHour} <span>/hr</span>
                       </p>
                     </div>
                   </div>
@@ -37,15 +40,15 @@ const CarCard = () => {
                     </div>
                     <div className="model-type">
                       <img src={'../src/assets/gear.png'} alt="" />
-                      <span>Manual</span>
+                      <span>{car?.transmission}</span>
                     </div>
                     <div className="model-type">
                       <img src={'../src/assets/speed.png'} alt="" />
-                      <span>Diesel</span>
+                      <span>{car?.fuelType}</span>
                     </div>
                     <div className="model-type">
                       <img src={"../src/assets/seat.png"} alt="" />
-                      <span>5</span>
+                      <span>{car?.seating}</span>
                     </div>
                   </div>
                 </div>

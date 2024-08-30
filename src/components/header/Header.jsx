@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './style.css'
+import { HiMenuAlt2 } from "react-icons/hi";
 
 const Header = () => {
 
@@ -32,9 +33,9 @@ const activeLink = (path)=>{
     <div className='navbar-sec'>
        <nav className="navbar navbar-expand-lg">
   <div className="container">
-    <a className="navbar-brand" href="#">
+    <Link className="navbar-brand" to='/'>
      RentACar
-    </a>
+    </Link>
     <button
       className="navbar-toggler"
       type="button"
@@ -44,7 +45,7 @@ const activeLink = (path)=>{
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span className="navbar-toggler-icon" />
+      <span className="navbar-toggler-icon"><HiMenuAlt2 /></span>
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">

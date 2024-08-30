@@ -22,130 +22,66 @@ import Users from "../pages/admin/Users/Users";
 import Dealers from "../pages/admin/Dealers/Dealers";
 import AddCar from "../pages/dealer/AddCar/AddCar";
 import AllReservations from "../pages/admin/Reservations/AllReservations";
+import AdminHomePage from "../pages/admin/AdminHomePage/AdminHomePage";
+import EditCar from "../pages/dealer/EditCar.jsx/EditCar";
+import { UserAuth } from "./ProtectedRoute/UserAuth";
+import { DealerAuth } from "./ProtectedRoute/dealerAuth";
 
 
 export const router = createBrowserRouter([
-   {
-    path : 'common',
-    element : <CommonLayout />,
-    children : [
-        {
-            path : 'login',
-            element : <Login />
-        },
-        {
-            path : 'signup',
-            element : <Signup />
-        },
-    ]
-   },
-    
     {
-      path: "/",
-      element: <RootLayout />,
-
-      children : [
-        {
-            path : '',
-            element : <HomePage />
-        },
-        
-        {
-            path : 'about',
-            element : <AboutPage />
-        },
-        {
-            path : 'carlist',
-            element : <CarList />
-        },
-        {
-            path : 'contact',
-            element : <Contact />
-        },
-      ]
-    },
-    {
+        path : 'common',
+        element : <CommonLayout />,
+        children : [
+            { path : 'login', element : <Login /> },
+            { path : 'signup', element : <Signup /> },
+        ]
+      },
+      {
+        path: "/",
+        element: <RootLayout />,
+        children : [
+            { path : '', element : <HomePage /> },
+            { path : 'about', element : <AboutPage /> },
+            { path : 'carlist', element : <CarList /> },
+            { path : 'contact', element : <Contact /> },
+        ]
+      },
+      {
         path : 'user',
-        element : <UserLayout />,
-
+        element : <UserAuth><UserLayout /></UserAuth>,
         children : [
+            { path : '', element : <HomePage /> },
+            { path : "carlist", element: <CarList /> },
             {
-                path : '',
-                element : <HomePage />
+              path : "car-detail/:id",
+              element: <UserAuth><CarDetailPage /></UserAuth>
             },
-           
-            {
-                path : "carlist",
-                element: <CarList />
-            },
-            {
-                path : "car-detail/:id",
-                element: <CarDetailPage />
-            },
-            {
-                path : "profile",
-                element: <UserProfile />
-            },
-            {
-                path : "myrentals",
-                element: <MyRentals />
-            },
-            {
-                path : "notification",
-                element: <UserNotification />
-            },
-            {
-                path : "contact",
-                element: <Contact />
-            },
-
+            { path : "profile", element: <UserProfile /> },
+            { path : "myrentals", element: <MyRentals /> },
+            { path : "notification", element: <UserNotification /> },
+            { path : "contact", element: <Contact /> },
         ]
-    },
-    {
+      },
+      {
         path : 'dealer',
-        element : <DealerLayout />,
-
+        element : <DealerAuth><DealerLayout /></DealerAuth>,
         children : [
+            { path : '', element : <HomePage /> },
+            { path : "carlist", element: <CarList /> },
             {
-                path : '',
-                element : <HomePage />
+              path : "car-detail/:id",
+              element: <DealerAuth><CarDetailPage /></DealerAuth>
             },
-           
-            {
-                path : "carlist",
-                element: <CarList />
-            },
-            {
-                path : "car-detail/:id",
-                element: <CarDetailPage />
-            },
-            {
-                path : "profile",
-                element: <DealerProfile />
-            },
-            {
-                path : "managerentals",
-                element: <Rentals />
-            },
-            {
-                path : "inventory",
-                element: <Inventory />
-            },
-            {
-                path : "addcar",
-                element: <AddCar />
-            },
-            {
-                path : "notification",
-                element: <DealerNotification />
-            },
-            {
-                path : "contact",
-                element: <Contact />
-            },
-
+            { path : "car/edit/:id", element: <EditCar /> },
+            { path : "profile", element: <DealerProfile /> },
+            { path : "managerentals", element: <Rentals /> },
+            { path : "inventory", element: <Inventory /> },
+            { path : "addcar", element: <AddCar /> },
+            { path : "notification", element: <DealerNotification /> },
+            { path : "contact", element: <Contact /> },
         ]
-    },
+      },
     {
         path : 'admin',
         element : <AdminLayout />,
@@ -153,29 +89,29 @@ export const router = createBrowserRouter([
         children : [
             {
                 path : '',
-                element : <HomePage />
+                element : <AdminHomePage />
             },
            
-            {
-                path : "carlist",
-                element: <CarList />
-            },
-            {
-                path : "car-detail/:id",
-                element: <CarDetailPage />
-            },
-            {
-                path : "users",
-                element: <Users />
-            },
-            {
-                path : "dealers",
-                element: <Dealers />
-            },
-            {
-                path : "reservations",
-                element: <AllReservations />
-            },
+            // {
+            //     path : "carlist",
+            //     element: <CarList />
+            // },
+            // {
+            //     path : "car-detail/:id",
+            //     element: <CarDetailPage />
+            // },
+            // {
+            //     path : "users",
+            //     element: <Users />
+            // },
+            // {
+            //     path : "dealers",
+            //     element: <Dealers />
+            // },
+            // {
+            //     path : "reservations",
+            //     element: <AllReservations />
+            // },
            
 
         ]

@@ -25,9 +25,10 @@
     background-position: right center;
 }
 .hero-content h1{
-    font-size: 70px;
+    font-size: 60px;
+    font-weight: 800;
     margin: 0;
-    line-height: 80px;
+    line-height: 70px;
 }
 .hero-content h4{
     margin-top: 10px;

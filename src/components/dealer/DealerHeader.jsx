@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './style.css'
 import { Link, useLocation } from 'react-router-dom'
+import axiosInstance from '../../config/axiosInstance'
+import { HiMenuAlt2 } from "react-icons/hi";
 
 const DealerHeader = () => {
 
@@ -19,19 +21,23 @@ const DealerHeader = () => {
     }
 
     const location = useLocation()
-    console.log(location.pathname);
+  
     
     const activeLink = (path)=>{
       return location.pathname === path
     }
 
+
+
+
+
   return (
     <div className='navbar-sec'>
     <nav className="navbar navbar-expand-lg">
 <div className="container">
- <a className="navbar-brand" href="#">
-  RentACar
- </a>
+<Link className="navbar-brand" to='/'>
+     RentACar
+    </Link>
  <button
    className="navbar-toggler"
    type="button"
@@ -41,7 +47,8 @@ const DealerHeader = () => {
    aria-expanded="false"
    aria-label="Toggle navigation"
  >
-   <span className="navbar-toggler-icon" />
+   <span className="navbar-toggler-icon" ><HiMenuAlt2 /></span>
+   
  </button>
  <div className="collapse navbar-collapse" id="navbarSupportedContent">
    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -70,7 +77,7 @@ const DealerHeader = () => {
        <Link className={`nav-link ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}><i className="bi bi-bell dealer"></i></Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`} to={'/'}>Logout</Link>
+       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`} to={'/'} >Logout</Link>
      </li>
      
    </ul>

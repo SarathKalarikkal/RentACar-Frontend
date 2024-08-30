@@ -14,3 +14,79 @@
   color: white;
   margin: 0;
 }
+
+.rent-card{
+  box-shadow: var(--box-shadow);
+  padding: 15px;
+}
+.rent-card{
+  display: flex;
+}
+.rent-left{
+  width: 40%;
+}
+.rent-right{
+  width: 60%;
+  padding: 20px;
+  position: relative;
+}
+.rent-right h3{
+  color: var(--text-color);
+}
+.rent-right p{
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: grey;
+}
+.rent-right p span{
+  font-weight: 600;
+  color: var(--text-color);
+}
+.rent-right .rent-btns{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rent-right button{
+  border: 0;
+  outline: 0;
+  padding: 2px 10px;
+  width: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.rent-btns .approve{
+   border: 1px solid green!important;
+   color: green;
+   background: none;
+}
+.rent-btns .approve:hover{
+  background-color: green;
+  color: white;
+}
+.rent-btns button.reject{
+  border: 1px solid rgb(255, 17, 0)!important;
+  color: rgb(235, 0, 0);
+  background: none;
+}
+.rent-btns .reject:hover{
+  background-color: rgb(235, 0, 0);
+  color: white;
+}
+
+.re-status-pending{
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  color: rgb(255, 196, 0);
+  font-size: 14px;
+}
+.re-status-confirmed{
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  color: rgb(38, 163, 4);
+  font-size: 14px;
+}

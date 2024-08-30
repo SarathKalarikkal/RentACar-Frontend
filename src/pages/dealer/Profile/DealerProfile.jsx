@@ -1,7 +1,16 @@
 import React from 'react'
 import './style.css'
+import { useSelector } from 'react-redux'
+import { formatDate } from '../../../math/formatDate'
 
 const DealerProfile = () => {
+
+const {userInfo} = useSelector((state)=>state.user)
+console.log(userInfo)
+
+
+const updatedAt = formatDate(userInfo?.updatedAt)
+
   return (
     <div className="container my-5">
     <div className="row">
@@ -16,8 +25,8 @@ const DealerProfile = () => {
             />
           </div>
           <div className="profile-usertitle">
-            <div className="profile-usertitle-name">John Doe</div>
-            <div className="profile-usertitle-email">johndoe@example.com</div>
+            <div className="profile-usertitle-name">{userInfo?.name}</div>
+            <div className="profile-usertitle-email">{userInfo?.email}</div>
           </div>
           <div className="profile-userbuttons">
             <a href="#" className="btn btn-outline-primary btn-sm">
@@ -42,24 +51,24 @@ const DealerProfile = () => {
               <div className="row">
                 <div className="col-md-6">
                   <p>
-                    <strong>Name:</strong> John Doe
+                    <strong>Name:</strong> {userInfo?.name}
                   </p>
                   <p>
-                    <strong>Email:</strong> johndoe@example.com
+                    <strong>Email:</strong> {userInfo?.email}
                   </p>
                   <p>
-                    <strong>Mobile:</strong> +1234567890
+                    <strong>Mobile:</strong> {userInfo?.phone}
                   </p>
                 </div>
                 <div className="col-md-6">
                   <p>
-                    <strong>Address:</strong> 1234 Main St, City, State
+                    <strong>Address:</strong> {userInfo?.location}
                   </p>
                   <p>
                     <strong>Role:</strong> Dealer
                   </p>
                   <p>
-                    <strong>Account Created:</strong> January 1, 2024
+                    <strong>Account Created:</strong> {updatedAt}
                   </p>
                 </div>
               </div>
