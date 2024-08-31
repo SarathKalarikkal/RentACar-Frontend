@@ -18,14 +18,18 @@ import DealerNotification from "../pages/dealer/Notifications/Notification";
 import Rentals from "../pages/dealer/ManageRentals/Rentals";
 import Inventory from "../pages/dealer/Inventory/Inventory";
 import { AdminLayout } from "../layouts/AdminLayout";
-import Users from "../pages/admin/Users/Users";
-import Dealers from "../pages/admin/Dealers/Dealers";
+
 import AddCar from "../pages/dealer/AddCar/AddCar";
-import AllReservations from "../pages/admin/Reservations/AllReservations";
+
 import AdminHomePage from "../pages/admin/AdminHomePage/AdminHomePage";
 import EditCar from "../pages/dealer/EditCar.jsx/EditCar";
 import { UserAuth } from "./ProtectedRoute/UserAuth";
 import { DealerAuth } from "./ProtectedRoute/dealerAuth";
+import UsersPage from "../pages/admin/allUsers/UsersPage";
+import DealersPage from "../pages/admin/allDealers/DealersPage";
+import CarsPage from "../pages/admin/allCars/CarsPage";
+import AllRentalsPage from "../pages/admin/allRentals/AllRentalsPage";
+import { AdminAuth } from "./ProtectedRoute/AdminAuth";
 
 
 export const router = createBrowserRouter([
@@ -84,7 +88,7 @@ export const router = createBrowserRouter([
       },
     {
         path : 'admin',
-        element : <AdminLayout />,
+        element :<AdminAuth> <AdminLayout /></AdminAuth>,
 
         children : [
             {
@@ -92,26 +96,23 @@ export const router = createBrowserRouter([
                 element : <AdminHomePage />
             },
            
-            // {
-            //     path : "carlist",
-            //     element: <CarList />
-            // },
-            // {
-            //     path : "car-detail/:id",
-            //     element: <CarDetailPage />
-            // },
-            // {
-            //     path : "users",
-            //     element: <Users />
-            // },
-            // {
-            //     path : "dealers",
-            //     element: <Dealers />
-            // },
-            // {
-            //     path : "reservations",
-            //     element: <AllReservations />
-            // },
+            {
+                path : "alluser",
+                element: <UsersPage />
+            },
+            {
+                path : "alldealers",
+                element: <DealersPage />
+            },
+            {
+                path : "allCars",
+                element: <CarsPage />
+            },
+            {
+                path : "allrentals",
+                element: <AllRentalsPage />
+            },
+
            
 
         ]

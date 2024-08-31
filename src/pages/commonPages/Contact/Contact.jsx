@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../../../config/axiosInstance";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const Contact = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -12,7 +12,7 @@ const Contact = () => {
       const response = await axiosInstance.post("/message/create", data);
       console.log(response);
 
-      toast.success(response.data.data.message);
+      toast.success(response.data.message);
       reset(); // Reset the form fields after submission
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -21,6 +21,7 @@ const Contact = () => {
 
   return (
     <>
+    <Toaster />
       <section className="contact-header">
         <div className="container">
           <h1>Contact</h1>

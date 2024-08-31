@@ -5,8 +5,11 @@ import { useParams } from "react-router-dom";
 import axiosInstance from "../../../config/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { setCarDetails } from "../../../Redux/features/carSlice";
+import ReservationForm from "../../../components/ReservationForm/ReservationForm";
 
 const CarDetailPage = () => {
+
+const[formActive, setFormActive] = useState(false)
 
   const carDetail = useSelector((state)=>state.car.carDetails)
   const dispatch = useDispatch()
@@ -30,7 +33,14 @@ useEffect(()=>{
   fetchCarDetail()
 },[carID])
 
-console.log("kklnlkjnj",carDetail);
+const reservationForm=()=>{
+   setFormActive(true)
+}
+
+
+
+
+
 
   return (
     <>
@@ -62,6 +72,10 @@ console.log("kklnlkjnj",carDetail);
                 </div>
               </div>
 
+              <button className="rqst-btn" onClick={reservationForm}>Request for reservation</button>
+               {
+                formActive && <ReservationForm setFormActive={setFormActive} carDetail={carDetail}/>
+               }
               <div className="row my-5">
                 <h4 className="vehicle-des-hd">Vehicle Specification</h4>
                 <div className="col-lg-12 mt-4">

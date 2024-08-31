@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import axiosInstance from '../../../config/axiosInstance';
 import { setDealerInfo } from '../../../Redux/features/dealerSlice';
 import Cookies from 'js-cookie';
+import { setAdminInfo } from '../../../Redux/features/adminSlice';
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -36,12 +37,24 @@ const Login = () => {
         response = await axiosInstance.post('/dealer/login', loginData); 
         Cookies.set('token', response.data.token, { expires: 1 });
         
+      }else if (data.role === 'admin') {
+
+        const {email, password} = data
+        const loginData = {email, password}
+
+        console.log(loginData);
+        
+        response = await axiosInstance.post('/admin/login', loginData); 
+        console.log(response.data);
+        Cookies.set('token', response.data.token, { expires: 1 });
+        
       }
       //  console.log("sadasd",response.data.token)
       const { role, ...userData } = response.data;
 
       dispatch(setUserInfo(userData.userData));
       dispatch(setDealerInfo(userData.userData));
+      dispatch(setAdminInfo(userData.userData));
 
       if (role === 'user') {
         toast.success('User Login successful');
@@ -53,7 +66,12 @@ const Login = () => {
         setTimeout(()=>{
           navigate('/dealer'); 
          },1000)
-      } else {
+      }else if (role === 'admin') {
+        setTimeout(()=>{
+          navigate('/admin'); 
+         },1000)
+      } 
+      else {
         toast.error('Invalid role');
       }
 

@@ -22,7 +22,7 @@ const formattedDate = formatDate(Createdate);
       <div className="profile-sidebar">
         <div className="profile-userpic">
           <img
-            src="https://via.placeholder.com/150"
+            src={user?.profilePic}
             className="img-fluid rounded-circle"
             alt="Profile Picture"
           />

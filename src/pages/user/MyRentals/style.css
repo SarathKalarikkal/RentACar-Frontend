@@ -31,8 +31,10 @@
  }
 
  .rental-card{
-   box-shadow: var(--box-shadow);
    border-radius: 5px;
+ }
+ .rent-card-long{
+   box-shadow: var(--box-shadow);
  }
  .rental-card-right{
    background-color: var(--secondary-color);

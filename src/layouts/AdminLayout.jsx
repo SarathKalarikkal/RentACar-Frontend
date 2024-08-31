@@ -8,10 +8,12 @@ import AdminHeader from '../components/Admin/AdminSidebar'
 
 export const AdminLayout = () => {
   return (
-    <div>
-        <AdminHeader/>
+    <div style={{height : '100vh'}}>
         <ThemeChanger />
-        <Outlet />
+       <div className='d-flex'>
+       <AdminHeader/>
+       <Outlet />
+       </div>
     </div>
   )
 }

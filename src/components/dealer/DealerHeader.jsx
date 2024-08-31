@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import './style.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axiosInstance from '../../config/axiosInstance'
 import { HiMenuAlt2 } from "react-icons/hi";
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 const DealerHeader = () => {
 
@@ -27,7 +29,20 @@ const DealerHeader = () => {
       return location.pathname === path
     }
 
+    const navigate = useNavigate()
 
+    const dealerLogout = async()=>{
+      const response = await axiosInstance.get('/dealer/logout')
+     console.log(response.data.success)
+     if(response.data.success === true){
+      Cookies.remove('token');
+      toast.success(response.data.message)
+      setTimeout(()=>{
+        navigate('/')
+      },1000)
+      
+     }
+    }
 
 
 
@@ -77,7 +92,7 @@ const DealerHeader = () => {
        <Link className={`nav-link ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}><i className="bi bi-bell dealer"></i></Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`} to={'/'} >Logout</Link>
+       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`}  onClick={dealerLogout}>Logout</Link>
      </li>
      
    </ul>

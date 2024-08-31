@@ -178,3 +178,17 @@
 .payment-available .payment-below img{
     width: 20%;
 }
+
+.rqst-btn{
+    padding: 10px 20px;
+    border: 0;
+    outline: 0;
+    border-radius: 3px;
+    background: var(--brand-color);
+    color: white;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.rqst-btn:hover{
+    background-color: rgb(255, 140, 0);
+}

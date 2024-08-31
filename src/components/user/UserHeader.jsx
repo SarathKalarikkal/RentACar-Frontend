@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import './style.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { HiMenuAlt2 } from "react-icons/hi";
+import Cookies from 'js-cookie';
+import axiosInstance from '../../config/axiosInstance';
+import toast from 'react-hot-toast';
 
 const UserHeader = () => {
 
@@ -25,6 +28,23 @@ console.log(location.pathname);
 const activeLink = (path)=>{
   return location.pathname === path
 }
+
+const navigate= useNavigate()
+
+
+const userLogout = async()=>{
+  const response = await axiosInstance.get('/user/logout')
+ console.log(response.data.success)
+ if(response.data.success === true){
+  Cookies.remove('token');
+  toast.success(response.data.message)
+  setTimeout(()=>{
+    navigate('/')
+  },1000)   
+ }
+}
+
+
 
   return (
     <div className='navbar-sec'>
@@ -68,7 +88,7 @@ const activeLink = (path)=>{
           <Link className={`nav-link icon ${activeLink('/user/notification') ? 'active' : ''}`} to={'/user/notification'}><i className="bi bi-bell"></i></Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={'/'}>Logout</Link>
+          <Link className="nav-link" onClick={userLogout}>Logout</Link>
         </li>
         
       </ul>
