@@ -3,6 +3,13 @@
     align-items: center;
     justify-content: center;
     height:100vh;
+    background: url('../../../assets//bg-1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+body.dark .login-wrapper{
+    background: none
 }
 .login-wrapper form label, .login-wrapper p{
     color: var(--text-color);

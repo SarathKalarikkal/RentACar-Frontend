@@ -20,7 +20,7 @@ const CarCard = ({car}) => {
                   <i className="bi bi-heart-fill heart" />
                 </div>
                 <div className="mid">
-                  <img src={'../src/assets/car.png'} alt="" />
+                  <img src={car?.images[0]} alt="" />
                 </div>
                 <div className="bottom">
                   <div className="model">

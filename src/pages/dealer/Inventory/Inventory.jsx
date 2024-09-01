@@ -44,7 +44,7 @@ const Inventory = () => {
             {inventoryList.length > 0 ? (
               inventoryList?.map((car) => {
                  return(
-                  <InventoryCard car={car} />
+                  <InventoryCard car={car} key={car._id}/>
                  )
               })
             ) : (

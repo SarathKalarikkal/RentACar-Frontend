@@ -78,7 +78,7 @@ const reservationForm=()=>{
                }
               <div className="row my-5">
                 <h4 className="vehicle-des-hd">Vehicle Specification</h4>
-                <div className="col-lg-12 mt-4">
+                <div className="col-lg-12 mt-4 car-spec">
                   <table className="table table-bordered">
                     <tbody>
                       <tr>

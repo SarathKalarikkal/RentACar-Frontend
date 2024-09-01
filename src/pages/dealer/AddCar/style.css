@@ -19,11 +19,21 @@
 }
 
 #imagePreview img {
-    max-width: 200px;
+    max-width: 140px;
     height: auto;
     margin-right: 10px;
 }
-
+.upload-btn{
+  border: 1px solid rgb(3, 176, 182);
+  background: none;
+  padding: 8px 10px;
+  color: rgb(1, 144, 149);
+  font-size: 14px;
+}
+.upload-btn:hover{
+  background-color:rgb(3, 176, 182) ;
+  color: white;
+}
 #add-car-form{
     /* background-color: var(--secondry-color); */
     box-shadow: var(--box-shadow);
@@ -114,4 +124,20 @@
   
   #add-car-form .image-preview {
     margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+.image-container{
+  position: relative;
+}
+.image-container .button-wrap{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+  @media screen and (max-width:768px){
+    #add-car-form{
+      padding: 20px;
+  }
+  
   }

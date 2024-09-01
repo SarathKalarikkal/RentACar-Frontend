@@ -87,3 +87,15 @@ background-size: cover;
     padding: 8px 16px;
     width: 40%;
 }
+
+@media screen and (max-width:768px){
+    .contact-box {
+        padding: 4px;
+        margin-bottom: 22px;
+    }
+    .icon-box {
+        padding: 21px 39px;
+        position: relative;
+        bottom: 20px;
+    }
+}

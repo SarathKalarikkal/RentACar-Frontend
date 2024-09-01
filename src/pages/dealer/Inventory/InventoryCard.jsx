@@ -10,7 +10,7 @@ const InventoryCard = ({car, ondelete}) => {
     <div className="col-md-6" key={car._id}>
                   <div className="car-box-list-view">
                     <div className="left">
-                      <img src={car.images[0] || '../src/assets/car.png'} alt={car.make} />
+                      <img src={car.images[0]} alt={car.make} />
                     </div>
                     <div className="right inventory">
                       <div className="car-list-content ">

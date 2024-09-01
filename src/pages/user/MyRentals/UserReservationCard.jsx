@@ -36,7 +36,7 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
                 <div className="rent-card-long mb-3 row">
                     <div className="col-md-4">
                         <div className="rental-img">
-                            <img src={reservation?.car.images[0]} alt="" />
+                            {/* <img src={reservation?.car.images[0]} alt="" /> */}
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -45,7 +45,7 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
                                 <p>Status :</p>
                                 <span>{reservation?.status}</span>
                             </div>
-                            <h3>{reservation?.car.make} {reservation?.car.model}</h3>
+                            <h3>{reservation?.car?.make } {reservation?.car?.model}</h3>
                             <div className="rented-box">
                                 <label>Rental Period :</label>
                                 <span>{startDate} - {endDate}</span>
@@ -65,8 +65,8 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
                                 <ReservationForm
                                     setFormActive={setFormActive}
                                     carDetail={{
-                                        name: `${reservation?.car.make} ${reservation?.car.model}`,
-                                        rentPerHour: reservation?.car.rentPerHour,
+                                        name: `${reservation?.car?.make || "Car Make"} ${reservation?.car?.model}`,
+                                        rentPerHour: reservation?.car?.rentPerHour,
                                         id: reservation?.car._id
                                     }}
                                     initialData={{

@@ -55,3 +55,23 @@ background-size: cover;
   background-color:rgb(255, 15, 15) ;
   color: white;
 }
+
+
+@media screen and (max-width:768px){
+  .car-box-list-view .left {
+    width: 100%;
+}
+.car-box-list-view {
+  display: flex;
+  flex-direction: column;
+}
+.car-box-list-view .right {
+  padding: 10px;
+ width: 100%;
+}
+.car-box-list-view .left img {
+  width: 100%;
+  object-fit: contain;
+  aspect-ratio: none;
+}
+}

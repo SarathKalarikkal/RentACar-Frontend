@@ -165,3 +165,25 @@ background-size: cover;
 .price-range{
     width: 100%;
 }
+
+
+@media screen and (max-width:564px){
+    .car-box {
+        padding: 5px;
+    }
+}
+@media screen and (max-width:768px){
+    .CarList-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .sidebar{
+        margin-bottom: 20px;
+    }
+    .view-switcher {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+}

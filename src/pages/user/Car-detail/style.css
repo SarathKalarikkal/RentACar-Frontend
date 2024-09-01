@@ -192,3 +192,13 @@
 .rqst-btn:hover{
     background-color: rgb(255, 140, 0);
 }
+
+@media screen and (max-width:768px){
+    .car-spec {
+        width: 430px;
+        overflow-x: scroll;
+    }
+    .description-box .post-btn{
+        margin-bottom: 20px;
+    }
+}

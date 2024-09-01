@@ -121,3 +121,15 @@
      background-size: cover;
      background-position: center;
  }
+
+ @media screen and (max-width:768px){
+    .about-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    .vision-box {
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+ }

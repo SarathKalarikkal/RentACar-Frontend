@@ -21,17 +21,14 @@ const AboutPage = () => {
                 <div className="col-12 col-md-6">
                    <div className="vision-box">
                       <h2>ABOUT</h2>
-                      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum, totam accusantium? Possimus, ea sapiente ex optio quidem dolorum, magnam iusto eaque officia adipisci culpa eveniet error sed beatae, quaerat omnis!
-                      Expedita natus magnam veniam totam molestias nostrum ea repudiandae rem commodi earum incidunt, cumque sapiente enim error nobis assumenda fugit tenetur eum iusto atque, quibusdam veritatis! Distinctio amet asperiores eaque.
-                      Quo inventore, odit laborum officia quos magnam maxime quasi sequi nisi accusantium nemo nostrum, similique harum a et optio qui soluta sit? Necessitatibus quasi error eveniet repellendus consequatur itaque enim.</p>
+                      <p>Our car rental service is dedicated to providing you with a seamless and enjoyable rental experience. We offer a wide range of vehicles, from compact cars to luxury SUVs, to meet the diverse needs of our customers. Whether you're planning a weekend getaway, a business trip, or need a temporary vehicle, we've got you covered. Our mission is to make car rentals easy, affordable, and accessible for everyone, with a focus on excellent customer service and vehicle quality. We are committed to delivering  car rental solutions</p>
                    </div>
                 </div>
                 <div className="col-12 col-md-6">
                 <div className="vision-box">
                       <h2>VISION & MISSION</h2>
-                      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum, totam accusantium? Possimus, ea sapiente ex optio quidem dolorum, magnam iusto eaque officia adipisci culpa eveniet error sed beatae, quaerat omnis!
-                      Expedita natus magnam veniam totam molestias nostrum ea repudiandae rem commodi earum incidunt, cumque sapiente enim error nobis assumenda fugit tenetur eum iusto atque, quibusdam veritatis! Distinctio amet asperiores eaque.
-                      Quo inventore, odit laborum officia quos magnam maxime quasi sequi nisi accusantium nemo nostrum, similique harum a et optio qui soluta sit? Necessitatibus quasi error eveniet repellendus consequatur itaque enim.</p>
+                      <p className='mb-0'>To become the leading car rental service in the region, known for our exceptional customer service, diverse fleet of vehicles, and innovative rental solutions that cater to the evolving needs of our customers</p>
+                      <p>Our mission is to provide our customers with a reliable and hassle-free car rental experience. We aim to achieve this by maintaining a fleet of well-maintained vehicles, offering competitive pricing. We are dedicated to continuous improvement,.</p>
                    </div>
                 </div>
              </div>
