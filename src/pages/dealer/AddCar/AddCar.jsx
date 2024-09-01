@@ -1,68 +1,50 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './style.css';
-import { RiDeleteBin2Line } from 'react-icons/ri';
-import { CgSoftwareUpload } from 'react-icons/cg';
 import axiosInstance from '../../../config/axiosInstance';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+
 
 const AddCar = () => {
   const { register, handleSubmit, reset } = useForm();
-  const [imageFiles, setImageFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
 
   const onSubmit = async (data) => {
     try {
-      
       const formData = new FormData();
-      for (let key in data) {
-        if (Array.isArray(data[key])) {
-          data[key].forEach(file => formData.append(key, file));
+
+      // Append each form field to FormData
+      for (const key in data) {
+        if (key === "images") {
+          // Append multiple images
+          Array.from(data.images).forEach((file) => formData.append("images", file));
         } else {
           formData.append(key, data[key]);
         }
       }
+
       const response = await axiosInstance.post('/car/create', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+
       toast.success(response.data.message);
-      reset(); 
-      setImageFiles([]); 
-      setImagePreviews([]); 
-      console.log("formdat", formData)
+      reset(); // Reset the form after successful submission
+      setImagePreviews([]); // Clear the image previews
     } catch (error) {
-      toast.error(error.response.data.message)
-      console.error("asdasds",error);
-      reset()
+      toast.error('Failed to add car. Please try again.');
+      console.error("There was an error uploading the car details:", error);
     }
   };
 
-  // Handle file input change
+  // Handle file input change to preview images
   const handleImageChange = (event) => {
-    const files = Array.from(event.target.files);
-    const previews = files.map(file => URL.createObjectURL(file));
-    setImageFiles(files);
+    const files = event.target.files;
+    const previews = Array.from(files).map(file => URL.createObjectURL(file));
     setImagePreviews(previews);
-  };
-
-  // Handle image removal
-  const handleRemoveImage = (index) => {
-    const newImageFiles = imageFiles.filter((_, i) => i !== index);
-    const newImagePreviews = imagePreviews.filter((_, i) => i !== index);
-    setImageFiles(newImageFiles);
-    setImagePreviews(newImagePreviews);
-  };
-
-  // Handle image re-upload
-  const handleReupload = (index) => {
-    document.getElementById('carImage').click(); 
-    setImageFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
-    setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
   };
 
   return (
     <>
-      <Toaster />
       <section className='addCar-header'>
         <div className="container">
           <h1>ADD A CAR</h1>
@@ -151,6 +133,7 @@ const AddCar = () => {
                     {...register("type")}
                   />
                 </div>
+
                 <div className="form-group">
                   <label htmlFor="transmission">Transmission</label>
                   <div className="transmission-options">
@@ -220,7 +203,7 @@ const AddCar = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="location">Location</label>
+                  <label htmlFor="rentPerHour">Location</label>
                   <input
                     type="text"
                     className="form-control"
@@ -244,7 +227,7 @@ const AddCar = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="images">Car Images</label>
+                  <label htmlFor="carImage">Car Images</label>
                   <input
                     type="file"
                     className="form-control-file"
@@ -252,37 +235,17 @@ const AddCar = () => {
                     name="images"
                     multiple
                     required
+                    {...register("images")}
                     onChange={handleImageChange}
-                    ref={register("images")}
                   />
-                  <button type="button" className='upload-btn' onClick={() => document.getElementById('carImage').click()}>
-                    Upload Images
-                  </button>
                   <div id="imagePreview" className='image-preview'>
                     {imagePreviews.map((preview, index) => (
-                      <div key={index} className="image-container">
-                        <img
-                          src={preview}
-                          alt={`Preview ${index}`}
-                          className="img-thumbnail"
-                        />
-                        <div className="button-wrap">
-                          <button
-                            type="button"
-                            className="btn btn-danger"
-                            onClick={() => handleRemoveImage(index)}
-                          >
-                            <RiDeleteBin2Line />
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-secondary ms-2"
-                            onClick={() => handleReupload(index)}
-                          >
-                            <CgSoftwareUpload />
-                          </button>
-                        </div>
-                      </div>
+                      <img
+                        key={index}
+                        src={preview}
+                        alt={`Preview ${index}`}
+                        className="img-thumbnail"
+                      />
                     ))}
                   </div>
                 </div>
