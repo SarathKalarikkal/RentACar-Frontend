@@ -12,5 +12,9 @@ export const UserAuth = ({ children }) => {
         }
     }, [isAuthenticated, navigate]);
 
-    return isAuthenticated && userInfo.role === 'user' ? children : null;
+    if (!isAuthenticated) {
+        return null; 
+    }
+
+    return isAuthenticated && userInfo.role === 'user' ? children : navigate('/common/login');
 };

@@ -4,7 +4,9 @@ import ReservationForm from '../../../components/ReservationForm/ReservationForm
 import axiosInstance from '../../../config/axiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
 
-const UserReservationCard = ({ reservation }) => {
+
+
+const UserReservationCard = ({ reservation, onDelete  }) => {
     const startDate = formatDate(reservation?.startDate);
     const endDate = formatDate(reservation?.endDate);
     const updatedDate = formatDate(reservation?.updatedAt);
@@ -20,10 +22,10 @@ const UserReservationCard = ({ reservation }) => {
     };
 
 
-const cancelReservation =async()=>{
-   const response = await axiosInstance.delete(`/reservation/reservation/${reservation?._id}`)
-   toast.success(response.data.message)
-}
+// const cancelReservation =async()=>{
+//    const response = await axiosInstance.delete(`/reservation/reservation/${reservation?._id}`)
+//    toast.success(response.data.message)
+// }
 
 
 
@@ -55,7 +57,7 @@ const cancelReservation =async()=>{
                             <div className="rented-box-below">
                                 <div className="rental-btn">
                                     <button className="edit-reservation" onClick={editHandler}>Edit</button>
-                                    <button className="cancel-reservation" onClick={cancelReservation}>Cancel</button>
+                                    <button className="cancel-reservation" onClick={onDelete}>Cancel</button>
                                 </div>
                                 <p className="updated-status">Last updated on {updatedDate}</p>
                             </div>

@@ -37,10 +37,7 @@ const DealerHeader = () => {
      if(response.data.success === true){
       Cookies.remove('token');
       toast.success(response.data.message)
-      setTimeout(()=>{
-        navigate('/')
-      },1000)
-      
+      navigate('/')
      }
     }
 
@@ -92,7 +89,7 @@ const DealerHeader = () => {
        <Link className={`nav-link ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}><i className="bi bi-bell dealer"></i></Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`}  onClick={dealerLogout}>Logout</Link>
+       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`} to={'/'}  onClick={dealerLogout}>Logout</Link>
      </li>
      
    </ul>

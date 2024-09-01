@@ -5,11 +5,11 @@ import { formatDate } from '../../../math/formatDate'
 
 const DealerProfile = () => {
 
-const {userInfo} = useSelector((state)=>state.user)
-console.log(userInfo)
+const {dealerInfo} = useSelector((state)=>state.dealer)
+console.log(dealerInfo)
 
 
-const updatedAt = formatDate(userInfo?.updatedAt)
+const updatedAt = formatDate(dealerInfo?.updatedAt)
 
   return (
     <div className="container my-5">
@@ -25,8 +25,8 @@ const updatedAt = formatDate(userInfo?.updatedAt)
             />
           </div>
           <div className="profile-usertitle">
-            <div className="profile-usertitle-name">{userInfo?.name}</div>
-            <div className="profile-usertitle-email">{userInfo?.email}</div>
+            <div className="profile-usertitle-name">{dealerInfo?.name}</div>
+            <div className="profile-usertitle-email">{dealerInfo?.email}</div>
           </div>
           <div className="profile-userbuttons">
             <a href="#" className="btn btn-outline-primary btn-sm">
@@ -51,18 +51,18 @@ const updatedAt = formatDate(userInfo?.updatedAt)
               <div className="row">
                 <div className="col-md-6">
                   <p>
-                    <strong>Name:</strong> {userInfo?.name}
+                    <strong>Name:</strong> {dealerInfo?.name}
                   </p>
                   <p>
-                    <strong>Email:</strong> {userInfo?.email}
+                    <strong>Email:</strong> {dealerInfo?.email}
                   </p>
                   <p>
-                    <strong>Mobile:</strong> {userInfo?.phone}
+                    <strong>Mobile:</strong> {dealerInfo?.phone}
                   </p>
                 </div>
                 <div className="col-md-6">
                   <p>
-                    <strong>Address:</strong> {userInfo?.location}
+                    <strong>Address:</strong> {dealerInfo?.location}
                   </p>
                   <p>
                     <strong>Role:</strong> Dealer

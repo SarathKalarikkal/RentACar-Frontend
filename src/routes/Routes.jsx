@@ -32,6 +32,9 @@ import AllRentalsPage from "../pages/admin/allRentals/AllRentalsPage";
 import { AdminAuth } from "./ProtectedRoute/AdminAuth";
 
 
+
+
+
 export const router = createBrowserRouter([
     {
         path : 'common',
