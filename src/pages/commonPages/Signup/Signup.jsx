@@ -1,28 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react'; // Import useState
 import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-
 import toast, { Toaster } from 'react-hot-toast';
 import axiosInstance from '../../../config/axiosInstance';
+import Cookies from 'js-cookie'; // Ensure Cookies import is included
+import { setUserInfo } from '../../../Redux/features/userSlice';
+import { setDealerInfo } from '../../../Redux/features/dealerSlice';
+import { setAdminInfo } from '../../../Redux/features/adminSlice';
+import { useDispatch } from 'react-redux';
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [selectedRole, setSelectedRole] = useState(''); // State to track selected role
 
   const onSubmit = async (data) => {
     try {
-      const { name, email, password, role } = data;
-      const signupData = { name, email, password, role };
+      const { name, email, password, role, phone } = data;
+      const signupData = { name, email, password, role, phone };
+       console.log('dealerdata', signupData);
+       
+      let response;
+      if (role === 'user') {
+        response = await axiosInstance.post('/user/create', signupData);
+      } else if (role === 'dealer') {
+        response = await axiosInstance.post('/dealer/create', signupData);
+      }
 
-      
-      const response = await axiosInstance.post('/user/create', signupData);
-      console.log(response);
-      
-      toast.success('Signup successful');
-      setTimeout(() => {
-        navigate('/common/login');
-      }, 1000);
+      const { token, userData } = response.data;
+      Cookies.set('token', token, { expires: 1 });
+      localStorage.setItem('token', token);
+      localStorage.setItem('userInfo', JSON.stringify(userData));
+
+      if (role === 'user') {
+        dispatch(setUserInfo(userData));
+        toast.success('User Signup successful');
+        setTimeout(() => navigate('/user'), 1000);
+      } else if (role === 'dealer') {
+        dispatch(setDealerInfo(userData));
+        toast.success('Dealer Signup successful');
+        setTimeout(() => navigate('/dealer'), 1000);
+      } else {
+        toast.error('Invalid role');
+      }
     } catch (error) {
       console.error('Signup failed:', error.response?.data?.message || error.message);
       toast.error(`Signup failed: ${error.response?.data?.message || error.message}`);
@@ -68,6 +90,19 @@ const Signup = () => {
             />
             {errors.password && <p className="error">{errors.password.message}</p>}
           </div>
+          {selectedRole === 'dealer' && (
+            <div className="inp-grp">
+              <label htmlFor="phone">Phone</label>
+              <input
+                type="number"
+                name="phone"
+                id="phone"
+                {...register('phone', { required: 'Phone number is required' })}
+                placeholder='Enter your phone number'
+              />
+              {errors.phone && <p className="error">{errors.phone.message}</p>}
+            </div>
+          )}
           <div className="inp-grp role">
             <label htmlFor="role">Role</label>
             <div className="rol-wrap">
@@ -77,6 +112,7 @@ const Signup = () => {
                 id="user"
                 value="user"
                 {...register('role', { required: 'Role is required' })}
+                onChange={(e) => setSelectedRole(e.target.value)} // Update role state
               />
               <label htmlFor="user">User</label>
             </div>
@@ -87,21 +123,14 @@ const Signup = () => {
                 id="dealer"
                 value="dealer"
                 {...register('role', { required: 'Role is required' })}
+                onChange={(e) => setSelectedRole(e.target.value)} // Update role state
               />
               <label htmlFor="dealer">Dealer</label>
             </div>
-            <div className="rol-wrap">
-              <input
-                type="radio"
-                name="role"
-                id="admin"
-                value="admin"
-                {...register('role', { required: 'Role is required' })}
-              />
-              <label htmlFor="admin">Admin</label>
-            </div>
-            {errors.role && <p className="error">{errors.role.message}</p>}
           </div>
+
+         
+
           <button type='submit'>Signup</button>
         </div>
         <p>Already a member? <Link to={'/common/login'}>Login</Link></p>

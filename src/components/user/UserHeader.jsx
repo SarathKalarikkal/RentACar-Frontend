@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import axiosInstance from '../../config/axiosInstance';
 import toast from 'react-hot-toast';
 
+
 const UserHeader = () => {
 
   const [theme, setTheme] = useState(true)
@@ -34,9 +35,11 @@ const navigate= useNavigate()
 
 const userLogout = async()=>{
   const response = await axiosInstance.get('/user/logout')
- console.log(response.data.success)
+
  if(response.data.success === true){
   Cookies.remove('token');
+  localStorage.removeItem('userInfo');
+  localStorage.removeItem('token');
   toast.success(response.data.message)
   setTimeout(()=>{
     navigate('/')

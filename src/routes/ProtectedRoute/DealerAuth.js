@@ -7,10 +7,14 @@ export const DealerAuth = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/common/login');
+        if (!isAuthenticated || dealerInfo?.role !== 'dealer') {
+            navigate('/');
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, dealerInfo, navigate]);
 
-    return isAuthenticated && dealerInfo.role === 'dealer' ? children : null;
+    if (!isAuthenticated || dealerInfo?.role !== 'dealer') {
+        return null; 
+    }
+
+    return children;
 };

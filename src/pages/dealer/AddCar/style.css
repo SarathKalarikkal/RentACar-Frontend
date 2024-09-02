@@ -16,6 +16,8 @@
 }
 #imagePreview {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #imagePreview img {
@@ -140,4 +142,28 @@
       padding: 20px;
   }
   
+  }
+
+
+  .image-preview-item{
+    position: relative;
+  }
+  .image-preview-item .delete-btn{
+    padding: 0;
+    outline: 0;
+    border: 0;
+    color: red;
+    font-size: 20px;
+    background: 0;
+    position: absolute;
+    left:5px;
+    bottom: 5px;
+  }
+  .addCar-btn{
+    margin-top: 10px;
+    padding: 10px 20px;
+  }
+
+ #edit-car-form .form-group{
+     margin-bottom: 20px;
   }

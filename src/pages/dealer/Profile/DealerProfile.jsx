@@ -1,15 +1,27 @@
 import React from 'react'
 import './style.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { formatDate } from '../../../math/formatDate'
+import axiosInstance from '../../../config/axiosInstance'
+import { useNavigate } from 'react-router-dom'
+import { clearDealerInfo } from '../../../Redux/features/dealerSlice'
 
 const DealerProfile = () => {
 
 const {dealerInfo} = useSelector((state)=>state.dealer)
 console.log(dealerInfo)
-
+const navigate = useNavigate()
+const dispatch = useDispatch()
 
 const updatedAt = formatDate(dealerInfo?.updatedAt)
+
+
+const dealerLogout = async()=>{
+  dispatch(clearDealerInfo())
+  toast.success(response.data.message)
+  navigate('/')
+}
+
 
   return (
     <div className="container my-5">
@@ -32,7 +44,7 @@ const updatedAt = formatDate(dealerInfo?.updatedAt)
             <a href="#" className="btn btn-outline-primary btn-sm">
               Edit Profile
             </a>
-            <a href="#" className="btn btn-outline-danger btn-sm">
+            <a href="#" className="btn btn-outline-danger btn-sm" onClick={dealerLogout}>
               Logout
             </a>
           </div>

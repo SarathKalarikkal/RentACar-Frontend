@@ -7,14 +7,14 @@ export const UserAuth = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated) {
+        if (!isAuthenticated || userInfo?.role !== 'user') {
             navigate('/common/login');
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, userInfo, navigate]);
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated || userInfo?.role !== 'user') {
         return null; 
     }
 
-    return isAuthenticated && userInfo.role === 'user' ? children : navigate('/common/login');
-};
+    return children;
+}

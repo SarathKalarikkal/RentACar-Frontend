@@ -2,19 +2,39 @@ import React from 'react'
 import "./style.css"
 import { useSelector } from 'react-redux'
 import { formatDate } from '../../../math/formatDate'
+import toast, { Toaster } from 'react-hot-toast'
+import axiosInstance from '../../../config/axiosInstance'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 const UserProfile = () => {
 
 const user =  useSelector((state)=>state.user.userInfo)
 console.log("user details",user)
+const navigate = useNavigate()
 
 const Createdate = user?.updatedAt
 
 const formattedDate = formatDate(Createdate);
 
+const userLogout = async()=>{
+  const response = await axiosInstance.get('/user/logout')
+
+ if(response.data.success === true){
+  Cookies.remove('token');
+  localStorage.removeItem('userInfo');
+  localStorage.removeItem('token');
+  toast.success(response.data.message)
+  setTimeout(()=>{
+    navigate('/')
+  },1000)   
+ }
+}
+
 
   return (
     <>
+    <Toaster />
    <div className="container my-5">
   <div className="row">
     {/* Profile Sidebar */}
@@ -35,7 +55,7 @@ const formattedDate = formatDate(Createdate);
           <a href="#" className="btn btn-outline-primary btn-sm">
             Edit Profile
           </a>
-          <a href="#" className="btn btn-outline-danger btn-sm">
+          <a href="#" className="btn btn-outline-danger btn-sm" onClick={userLogout}>
             Logout
           </a>
         </div>

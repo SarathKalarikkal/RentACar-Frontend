@@ -5,6 +5,8 @@ import axiosInstance from '../../config/axiosInstance'
 import { HiMenuAlt2 } from "react-icons/hi";
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { clearDealerInfo } from '../../Redux/features/dealerSlice';
 
 const DealerHeader = () => {
 
@@ -30,15 +32,14 @@ const DealerHeader = () => {
     }
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
 
     const dealerLogout = async()=>{
-      const response = await axiosInstance.get('/dealer/logout')
-     console.log(response.data.success)
-     if(response.data.success === true){
-      Cookies.remove('token');
-      toast.success(response.data.message)
-      navigate('/')
-     }
+
+       dispatch(clearDealerInfo())
+         toast.success(response.data.message)
+         navigate('/')
     }
 
 
@@ -89,7 +90,7 @@ const DealerHeader = () => {
        <Link className={`nav-link ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}><i className="bi bi-bell dealer"></i></Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`} to={'/'}  onClick={dealerLogout}>Logout</Link>
+       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`}   onClick={dealerLogout}>Logout</Link>
      </li>
      
    </ul>

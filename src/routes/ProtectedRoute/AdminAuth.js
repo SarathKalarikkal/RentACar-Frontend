@@ -7,10 +7,14 @@ export const AdminAuth = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/common/login');
+        if (!isAuthenticated || adminInfo?.role !== 'admin') {
+            navigate('/');
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, adminInfo, navigate]);
 
-    return isAuthenticated && adminInfo.role === 'admin' ? children : null;
+    if (!isAuthenticated || adminInfo?.role !== 'admin') {
+        return null; 
+    }
+
+    return children;
 };

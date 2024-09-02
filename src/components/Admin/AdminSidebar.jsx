@@ -8,6 +8,7 @@ import { HiMiniTicket } from "react-icons/hi2";
 import axiosInstance from "../../config/axiosInstance";
 import toast from "react-hot-toast";
 import Cookies from 'js-cookie';
+import { clearAdminInfo } from "../../Redux/features/adminSlice";
 
 const AdminHeader = () => {
 
@@ -21,14 +22,16 @@ const AdminHeader = () => {
 
 const adminsignout = async()=>{
   const response = await axiosInstance.get('/admin/logout')
- console.log(response.data.success)
- if(response.data.success === true){
-  Cookies.remove('token');
-  toast.success(response.data.message)
-  setTimeout(()=>{
-    navigate('/')
-  },1000)
- }
+
+  if(response.data.success === true){
+   Cookies.remove('token');
+   localStorage.removeItem('userInfo');
+   localStorage.removeItem('token');
+   toast.success(response.data.message)
+   setTimeout(()=>{
+     navigate('/')
+   },1000)   
+  }
 }
 
 

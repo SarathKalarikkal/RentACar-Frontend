@@ -27,7 +27,7 @@ const ReservationForm = ({ setFormActive, carDetail }) => {
            
             if (response.data.success) {
                 toast.success('Reservation created successfully');
-                setFormActive(false);
+                setTimeout(()=>setFormActive(false),1000)
             } else {
                 toast.error(`Error: ${response.data.message}`);
                 
@@ -48,8 +48,10 @@ const ReservationForm = ({ setFormActive, carDetail }) => {
     };
 
     return (
-        <div className="reservation-form-modal">
-             <Toaster />
+        <>
+         <Toaster />
+         <div className="reservation-form-modal">
+            
             <form onSubmit={handleSubmit(submitHandler)}>
                 <div className="inp-group">
                     <label>Car</label>
@@ -73,6 +75,8 @@ const ReservationForm = ({ setFormActive, carDetail }) => {
                 <i className="bi bi-x-circle close-btn" onClick={closeForm}></i>
             </form>
         </div>
+        </>
+       
     );
 };
 

@@ -34,6 +34,7 @@ const Login = () => {
       const { token, userData } = response.data;
       Cookies.set('token', token, { expires: 1 });
       localStorage.setItem('token', token);
+      localStorage.setItem('userInfo', JSON.stringify(userData));
       
 
       // Dispatching user data to Redux store based on role

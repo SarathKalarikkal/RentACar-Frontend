@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../config/axiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
+import { MdDeleteForever } from "react-icons/md";
 
 const EditCar = () => {
   const { id } = useParams();
@@ -9,19 +10,52 @@ const EditCar = () => {
   const [carData, setCarData] = useState(null);
   const [imageFiles, setImageFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    make: '',
+    model: '',
+    fuelType: '',
+    color: '',
+    transmission: '',
+    seating: '',
+    mileage: '',
+    rentPerHour: '',
+    description: '',
+  });
 
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
         const response = await axiosInstance.get(`/car/${id}`);
         setCarData(response.data.data);
+        setFormData({
+          name: response.data.data.name,
+          make: response.data.data.make,
+          model: response.data.data.model,
+          fuelType: response.data.data.fuelType,
+          color: response.data.data.color,
+          transmission: response.data.data.transmission,
+          seating: response.data.data.seating,
+          mileage: response.data.data.mileage,
+          rentPerHour: response.data.data.rentPerHour,
+          description: response.data.data.description,
+        });
       } catch (error) {
         console.error("Error fetching car details:", error);
+        toast.error("Failed to fetch car details. Please try again.");
       }
     };
 
     fetchCarDetails();
   }, [id]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
@@ -39,26 +73,31 @@ const EditCar = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('name', event.target.name.value);
-      formData.append('make', event.target.make.value);
-      formData.append('model', event.target.model.value);
-      formData.append('fuelType', event.target.fuelType.value);
-      formData.append('color', event.target.color.value);
-      formData.append('transmission', event.target.transmission.value);
-      formData.append('seating', event.target.seating.value);
-      formData.append('mileage', event.target.mileage.value);
-      formData.append('rentPerHour', event.target.rentPerHour.value);
-      formData.append('description', event.target.description.value);
-      imageFiles.forEach(file => formData.append('images', file));
 
-      await axiosInstance.put(`/car/update/${id}`, formData, {
+    try {
+      // const formDataToSend = new FormData();
+  
+      // // Append regular fields
+      // for (const key in formData) {
+      //   if (formData.hasOwnProperty(key)) {
+      //     formDataToSend.append(key, formData[key]);
+      //   }
+      // }
+  
+      // // Append files
+      // imageFiles.forEach(file => {
+      //   formDataToSend.append('images', file);
+      // });
+  
+      console.log("FormData contents:", formData);
+  
+      const response = await axiosInstance.put(`/car/update/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-
+  
+      console.log(response);
       toast.success("Car updated successfully!");
       navigate(`/dealer/inventory`);
     } catch (error) {
@@ -89,7 +128,8 @@ const EditCar = () => {
                     className="form-control"
                     id="name"
                     name="name"
-                    defaultValue={carData.name}
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Enter car name"
                     required
                   />
@@ -101,7 +141,8 @@ const EditCar = () => {
                     className="form-control"
                     id="make"
                     name="make"
-                    defaultValue={carData.make}
+                    value={formData.make}
+                    onChange={handleInputChange}
                     placeholder="Enter car make"
                     required
                   />
@@ -113,7 +154,8 @@ const EditCar = () => {
                     className="form-control"
                     id="model"
                     name="model"
-                    defaultValue={carData.model}
+                    value={formData.model}
+                    onChange={handleInputChange}
                     placeholder="Enter car model"
                     required
                   />
@@ -124,7 +166,8 @@ const EditCar = () => {
                     className="form-control"
                     id="fuelType"
                     name="fuelType"
-                    defaultValue={carData.fuelType}
+                    value={formData.fuelType}
+                    onChange={handleInputChange}
                     required
                   >
                     <option value="">Select Fuel Type</option>
@@ -141,31 +184,34 @@ const EditCar = () => {
                     className="form-control"
                     id="color"
                     name="color"
-                    defaultValue={carData.color}
+                    value={formData.color}
+                    onChange={handleInputChange}
                     placeholder="Enter car color"
                     required
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="transmission">Transmission</label>
-                  <div className="transmission-options">
+                  <div className="transmission-options mt-2">
                     <label>
                       <input
                         type="radio"
                         id="transmission-automatic"
                         name="transmission"
                         value="Automatic"
-                        defaultChecked={carData.transmission === 'Automatic'}
+                        checked={formData.transmission === 'Automatic'}
+                        onChange={handleInputChange}
                       />
                       Automatic
                     </label>
-                    <label>
+                    <label className='ms-3'>
                       <input
                         type="radio"
                         id="transmission-manual"
                         name="transmission"
                         value="Manual"
-                        defaultChecked={carData.transmission === 'Manual'}
+                        checked={formData.transmission === 'Manual'}
+                        onChange={handleInputChange}
                       />
                       Manual
                     </label>
@@ -179,7 +225,8 @@ const EditCar = () => {
                     className="form-control"
                     id="seating"
                     name="seating"
-                    defaultValue={carData.seating}
+                    value={formData.seating}
+                    onChange={handleInputChange}
                     required
                   >
                     <option value="">Select Seating Capacity</option>
@@ -196,7 +243,8 @@ const EditCar = () => {
                     className="form-control"
                     id="mileage"
                     name="mileage"
-                    defaultValue={carData.mileage}
+                    value={formData.mileage}
+                    onChange={handleInputChange}
                     placeholder="Enter mileage"
                     required
                   />
@@ -208,7 +256,8 @@ const EditCar = () => {
                     className="form-control"
                     id="rentPerHour"
                     name="rentPerHour"
-                    defaultValue={carData.rentPerHour}
+                    value={formData.rentPerHour}
+                    onChange={handleInputChange}
                     placeholder="Enter rent per hour"
                     required
                   />
@@ -220,18 +269,18 @@ const EditCar = () => {
                     id="description"
                     name="description"
                     rows={4}
-                    defaultValue={carData.description}
+                    value={formData.description}
+                    onChange={handleInputChange}
                     placeholder="Enter a brief description"
                     required
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group d-flex flex-column">
                   <label htmlFor="carImage">Car Images</label>
                   <input
                     type="file"
-                    className="form-control-file"
+                    className="form-control-file mt-2"
                     id="carImage"
-                    name="carImage[]"
                     multiple
                     onChange={handleImageChange}
                   />
@@ -239,7 +288,9 @@ const EditCar = () => {
                     {imagePreviews.map((preview, index) => (
                       <div key={index} className="image-preview-item">
                         <img src={preview} alt={`Preview ${index}`} />
-                        <button type="button" onClick={() => handleRemoveImage(index)}>Remove</button>
+                        <button type="button" className='delete-btn' onClick={() => handleRemoveImage(index)}>
+                          <MdDeleteForever />
+                        </button>
                       </div>
                     ))}
                   </div>
