@@ -54,3 +54,19 @@
    color: var(--brand-color)!important;
  }
  
+
+ .notifi-span{
+   position: absolute;
+   top: 0;
+   right: 21px;
+   background: rgb(254, 28, 28);
+   color: white;
+   padding: 3px;
+   width: 15px;
+   height: 15px;
+   border-radius: 50px;
+   font-size: 14px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }

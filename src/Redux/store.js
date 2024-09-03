@@ -4,6 +4,7 @@ import carReducer from './features/carSlice';
 import dealerReducer from './features/dealerSlice';
 import reservationReducer from './features/reservationSlice';
 import adminReducer from './features/adminSlice';
+import notificationReducer from './features/notificationSlice';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         car: carReducer,
         reservation: reservationReducer,
         admin : adminReducer,
+        notifications : notificationReducer,
     },
 });
 

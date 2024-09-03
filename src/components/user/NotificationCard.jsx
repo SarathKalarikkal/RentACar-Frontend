@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { formatDate } from '../../math/formatDate';
 
-const NotificationCard = () => {
+const NotificationCard = ({ message, onDelete }) => {
 
 
     const [activeIndex, setActiveIndex] = useState(null);
@@ -9,6 +10,12 @@ const NotificationCard = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const deleteNotification = () => {
+    onDelete(message._id);
+    toast.success("Notification deleted");
+  };
+  
+  const date = formatDate(message?.createdAt);
 
   return (
    <div className="col-lg-12">
@@ -18,15 +25,10 @@ const NotificationCard = () => {
             onClick={() => toggleAccordion(0)}
             style={{ cursor: 'pointer' }}
           >
-            <h5 className="card-title notification-header">
-              Car Reservation Approved
-            </h5>
             <p className="card-text notification-body">
-              Your reservation for <strong>Toyota Camry</strong> has been{" "}
-              <span className="notification-status approved">approved</span> by
-              the dealer.
+             {message?.message}
             </p>
-            <p className="notification-date">Approved on: August 25, 2024</p>
+            <p className="notification-date">Approved on: {date}</p>
             {activeIndex === 0 && (
               <div className="notification-details">
                 <p>
@@ -34,6 +36,9 @@ const NotificationCard = () => {
                 </p>
               </div>
             )}
+            <button className="close-btn" onClick={deleteNotification}>
+            <i className="bi bi-x-circle-fill"></i>
+          </button>
           </div>
         </div>
    </div>

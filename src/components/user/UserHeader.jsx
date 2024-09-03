@@ -5,11 +5,15 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import Cookies from 'js-cookie';
 import axiosInstance from '../../config/axiosInstance';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 
 const UserHeader = () => {
 
   const [theme, setTheme] = useState(true)
+
+  const notificationList = useSelector((state)=>state.notifications.notificationList)
+  console.log("noti", notificationList.length)
 
 const handleTheme =()=>{
  const body =  document.querySelector('body')
@@ -88,7 +92,11 @@ const userLogout = async()=>{
           <Link className={`nav-link icon ${activeLink('/user/profile') ? 'active' : ''}`} to={'/user/profile'}><i class="bi bi-person-circle"></i></Link>
         </li>
         <li className="nav-item">
-          <Link className={`nav-link icon ${activeLink('/user/notification') ? 'active' : ''}`} to={'/user/notification'}><i className="bi bi-bell"></i></Link>
+          <Link className={`nav-link icon position-relative ${activeLink('/user/notification') ? 'active' : ''}`} to={'/user/notification'}>
+          <i className="bi bi-bell"></i>
+          
+           <span className={`notifi-span ${notificationList.length > 0 ? "visible" : "none"}`}>{notificationList.length}</span>
+          </Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" onClick={userLogout}>Logout</Link>

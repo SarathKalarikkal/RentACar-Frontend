@@ -51,4 +51,21 @@
 .bi-person-circle.dealer,  .bi-bell.dealer{
    margin: 0!important;
 }
-
+.notifi-span.visible{
+   position: absolute;
+   top: 0;
+   right: -6px;
+   background: rgb(254, 28, 28);
+   color: white;
+   padding: 3px;
+   width: 15px;
+   height: 15px;
+   border-radius: 50px;
+   font-size: 14px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+.notifi-span.none{
+   display: none;
+}

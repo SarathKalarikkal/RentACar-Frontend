@@ -5,6 +5,7 @@ import CarListView from '../../../components/carListView/CarListView'
 import axiosInstance from '../../../config/axiosInstance'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCarList } from '../../../Redux/features/carSlice'
+import { useForm } from 'react-hook-form'
 
 
 const CarList = () => {
@@ -36,7 +37,8 @@ useEffect(()=>{
 
 console.log("carlist", carList);
 
-
+const { register, handleSubmit } = useForm()
+  const onSubmit = (data) => console.log(data)
 
 
   return (
@@ -56,14 +58,15 @@ console.log("carlist", carList);
       <div className="container">
   <div className="row">
     {/* Sidebar */}
-    <div className="col-12 col-lg-3">
+    {/* <div className="col-12 col-lg-3">
       <div className="sidebar-wrapper">
         <h5 className="sidebar-title">SEARCH CAR</h5>
         <div className="sidebar">
-          {/* Make and Model Filter */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+         
           <div className="filter-group">
             <label htmlFor="make">BY MAKE</label>
-            <select id="make" className="form-select">
+            <select id="make" className="form-select" {...register("make")}>
             <option  default>All Make</option>
              {
               carList?.map((car)=>{
@@ -71,7 +74,7 @@ console.log("carlist", carList);
               })
              }
             </select>
-            <select id="model" className="form-select">
+            <select id="model" className="form-select" {...register("model")}>
             <option  default>All Model</option>
              {
               carList?.map((car)=>{
@@ -80,7 +83,7 @@ console.log("carlist", carList);
              }
             </select>
           </div>
-          {/* Price Range Filter */}
+         
           <div className="filter-group">
             <label htmlFor="priceRange">BY PRICE</label>
             <input
@@ -89,38 +92,19 @@ console.log("carlist", carList);
               id="volume"
               name="volume"
               min={0}
-              max={9999}
+              max={3000}
+              {...register("rentPerhour")}
             />
             <div className="d-flex justify-content-between price-values">
               <span>0</span>
-              <span>99,999</span>
+              <span>3000</span>
             </div>
           </div>
-          {/* Body Type Filter */}
-          {/* <div class="filter-group">
-                  <label>BODY TYPE</label>
-                  <div class="body-type-options">
-                      <div class="form-check">
-                          <input type="radio" name="bodyType" id="convertible" class="form-check-input">
-                          <label for="convertible" class="form-check-label">
-                            
-                              <span>Convertible</span>
-                          </label>
-                      </div>
-                      <div class="form-check">
-                          <input type="radio" name="bodyType" id="coupe" class="form-check-input">
-                          <label for="coupe" class="form-check-label">
-                              
-                              <span>Coupe</span>
-                          </label>
-                      </div>
-                      
-                  </div>
-              </div> */}
-          {/* Other Filters */}
+         
+         
           <div className="filter-group">
             <label htmlFor="fuelType">FUEL TYPE</label>
-            <select id="fuelType" className="form-select">
+            <select id="fuelType" className="form-select" {...register("fuelType")}>
             <option  default>All Fuel Types</option>
              {
               carList?.map((car)=>{
@@ -131,7 +115,7 @@ console.log("carlist", carList);
           </div>
           <div className="filter-group">
             <label htmlFor="transmission">TRANSMISSION RANGE</label>
-            <select id="transmission" className="form-select">
+            <select id="transmission" className="form-select" {...register("transmission")}>
             <option  default>All transmissions</option>
              {
               carList?.map((car)=>{
@@ -140,42 +124,44 @@ console.log("carlist", carList);
              }
             </select>
           </div>
-          <div className="filter-group">
-            <label htmlFor="condition">CONDITION</label>
-            <select id="condition" className="form-select">
-              <option>All conditions</option>
-              {/* Add more options as needed */}
-            </select>
-          </div>
-          {/* Reset Filter Button */}
-          <button className="btn main-btn w-100">SEARCH</button>
+         
+         
+          <button className="btn main-btn w-100" type='submit'>SEARCH</button>
           <button type="reset" className="reset-button">
             <i className="bi bi-arrow-clockwise me-1" />
             Reset all
           </button>
+          </form>
         </div>
       </div>
-    </div>
-    {/* Car List Section */}
-    <div className="col-12 col-lg-9">
+    </div> */}
+  
+    <div className="col-12 col-lg-12">
       <div className="car-list">
         <div className="row">
           <div className="row top-controls mb-4">
-            <div className="col-6 col-md-3">
-              <select className="form-select">
+            {/* <div className="col-6 col-md-3">
+              <select className="form-select" {...register("count")}>
                 <option selected="">9 Autos</option>
-                {/* Add more options as needed */}
               </select>
-            </div>
-            <div className="col-6 col-md-3">
-              <select className="form-select">
+            </div> */}
+            <div className="col-6 col-md-2">
+              <select className="form-select" {...register("sort")}>
                 <option selected="">SORT</option>
                 <option selected="">Low to high</option>
                 <option selected="">High to low</option>
                 {/* Add sorting options as needed */}
               </select>
             </div>
-            <div className="col-md-6 text-end view-switcher-wrap ">
+            <div className="col-6 col-md-2">
+              <select className="form-select" {...register("transmission")}>
+                <option selected="">Transmission</option>
+                <option selected="">Automatic</option>
+                <option selected="">Manual</option>
+                {/* Add sorting options as needed */}
+              </select>
+            </div>
+            <div className="col-md-8 text-end view-switcher-wrap ">
               <div className="view-switcher">
                 <button className={`btn ${boxView ? '' : "active"}`} onClick={handleViewMod}
                 data-bs-toggle="tooltip" data-bs-placement="top" title="List View">
@@ -197,7 +183,7 @@ console.log("carlist", carList);
                 
                 {
                           carList.map((car) => (
-                            <div className="col-12 col-md-6" key={car?.id}> 
+                            <div className="col-12 col-md-4" key={car?.id}> 
                               <CarCard car={car} />
                             </div>
                           ))

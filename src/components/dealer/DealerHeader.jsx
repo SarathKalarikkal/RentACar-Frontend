@@ -5,12 +5,15 @@ import axiosInstance from '../../config/axiosInstance'
 import { HiMenuAlt2 } from "react-icons/hi";
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearDealerInfo } from '../../Redux/features/dealerSlice';
 
 const DealerHeader = () => {
 
     const [theme, setTheme] = useState(true)
+
+    const dealerNotificationList = useSelector((state)=>state.notifications.dealerNotificationList)
+    console.log("noti", dealerNotificationList.length)
 
     const handleTheme =()=>{
      const body =  document.querySelector('body')
@@ -87,7 +90,10 @@ const DealerHeader = () => {
        <Link className={`nav-link ${activeLink('/dealer/profile') ? 'active' : ''}`} to={'/dealer/profile'}><i class="bi bi-person-circle dealer"></i></Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}><i className="bi bi-bell dealer"></i></Link>
+       <Link className={`nav-link  ${activeLink('/dealer/notification') ? 'active' : ''}`} to={'/dealer/notification'}>
+       <i className="bi bi-bell dealer position-relative"></i>
+       <span className={` notifi-span ${dealerNotificationList.length > 0 ? 'visible' : 'none'}`}>{dealerNotificationList.length}</span>
+       </Link>
      </li>
      <li className="nav-item">
        <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`}   onClick={dealerLogout}>Logout</Link>

@@ -36,7 +36,6 @@
 .car-box-list-view .left img{
     width: 100%;
     object-fit: contain;
-    aspect-ratio: 1;
 }
 .car-box-list-view .right p{
     font-size: 14px;
