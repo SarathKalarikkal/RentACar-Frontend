@@ -21,6 +21,7 @@ const EditCar = () => {
     mileage: '',
     rentPerHour: '',
     description: '',
+    images : ""
   });
 
   useEffect(() => {
@@ -39,6 +40,7 @@ const EditCar = () => {
           mileage: response.data.data.mileage,
           rentPerHour: response.data.data.rentPerHour,
           description: response.data.data.description,
+          images: response.data.data.images
         });
       } catch (error) {
         console.error("Error fetching car details:", error);

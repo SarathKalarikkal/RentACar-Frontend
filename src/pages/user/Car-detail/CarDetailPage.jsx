@@ -55,21 +55,20 @@ const reservationForm=()=>{
           <div className="row">
             <div className="col-12 col-md-8">
               <div className="detail-main-img">
-                <img src={"../../src/assets/car.png"} alt="" />
+                <img src={carDetail?.images[0]} alt="" />
               </div>
               <div className="sub-img">
-                <div className="detail-sub-img">
-                  <img src={"../../src/assets/car.png"} alt="" />
-                </div>
-                <div className="detail-sub-img">
-                  <img src={"../../src/assets/car.png"} alt="" />
-                </div>
-                <div className="detail-sub-img">
-                  <img src={"../../src/assets/car.png"} alt="" />
-                </div>
-                <div className="detail-sub-img">
-                  <img src={"../../src/assets/car.png"} alt="" />
-                </div>
+                {
+                  carDetail?.images.map((image)=>{
+                    return(
+                      <div className="detail-sub-img">
+                      <img src={image} alt="" />
+                    </div>
+                    )
+                  })
+                }
+               
+                
               </div>
 
               <button className="rqst-btn" onClick={reservationForm}>Request for reservation</button>

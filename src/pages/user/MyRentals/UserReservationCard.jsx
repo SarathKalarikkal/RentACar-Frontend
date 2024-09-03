@@ -3,6 +3,7 @@ import { formatDate } from '../../../math/formatDate';
 import ReservationForm from '../../../components/ReservationForm/ReservationForm';
 import axiosInstance from '../../../config/axiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
+import ReservationUpdateForm from '../../../components/user/ReservationUpdateForm';
 
 
 
@@ -10,6 +11,9 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
     const startDate = formatDate(reservation?.startDate);
     const endDate = formatDate(reservation?.endDate);
     const updatedDate = formatDate(reservation?.updatedAt);
+
+    console.log("sadsadasdasd",reservation?.startDate);
+    
 
     const [formActive, setFormActive] = useState(false);
 
@@ -36,7 +40,7 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
                 <div className="rent-card-long mb-3 row">
                     <div className="col-md-4">
                         <div className="rental-img">
-                            {/* <img src={reservation?.car.images[0]} alt="" /> */}
+                            <img src={reservation?.car.images[0]} alt="" />
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -62,11 +66,12 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
                                 <p className="updated-status">Last updated on {updatedDate}</p>
                             </div>
                             {formActive && (
-                                <ReservationForm
+                                <ReservationUpdateForm
                                     setFormActive={setFormActive}
+                                    reservation={reservation}
                                     carDetail={{
                                         name: `${reservation?.car?.make || "Car Make"} ${reservation?.car?.model}`,
-                                        rentPerHour: reservation?.car?.rentPerHour,
+                                        rentPerHour: reservation?.rentPerHour,
                                         id: reservation?.car._id
                                     }}
                                     initialData={{

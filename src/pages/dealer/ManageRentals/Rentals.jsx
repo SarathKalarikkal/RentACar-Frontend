@@ -40,7 +40,7 @@ console.log("asdasd",dealerReservationList);
          {
           dealerReservationList?.map((reservation)=>{
             return(
-              <ManageRentalCard  reservation={reservation}/>
+              <ManageRentalCard key={reservation._id}  reservation={reservation}/>
             )
           })
          }

@@ -4,9 +4,11 @@ import { useForm } from 'react-hook-form';
 import './style.css';
 import axiosInstance from '../../config/axiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
+import { convertToISODate } from '../../math/ISODateFormate';
 
-const ReservationForm = ({ setFormActive, carDetail }) => {
-    
+
+const ReservationUpdateForm = ({ setFormActive, carDetail, reservation }) => {
+
     const { register, handleSubmit, setValue } = useForm();
 
 
@@ -18,31 +20,42 @@ const ReservationForm = ({ setFormActive, carDetail }) => {
     }, [carDetail, setValue]);
 
     const submitHandler = async (data) => {
+        console.log("Form data:", data);
+    
         try {
-            const response = await axiosInstance.post('/reservation/create', {
+            
+            const startDateISO = new Date(data.startDate).toISOString();
+            const endDateISO = new Date(data.endDate).toISOString();
+    
+            console.log("Converted dates:", { startDateISO, endDateISO });
+    
+            const response = await axiosInstance.put(`/reservation/${reservation._id}`, {
                 carId: carDetail._id, 
-                startDate: data.startDate,
-                endDate: data.endDate,
+                startDate: startDateISO,
+                endDate: endDateISO,
                 rentPerHour: data.rentPerHour,
             });
-           
+
+            console.log(response.data.data);
+            
+    
             if (response.data.success) {
-                toast.success('Reservation created successfully');
-                setTimeout(()=>setFormActive(false),1000)
+                toast.success('Reservation updated successfully');
+                setTimeout(() => setFormActive(false), 1000);
             } else {
                 toast.error(`Error: ${response.data.message}`);
-                
             }
         } catch (error) {
             if (error.response && error.response.data) {
-                
                 toast.error(`Error: ${error.response.data.message}`);
             } else {
-                console.error('Error creating reservation:', error);
+                console.error('Error updating reservation:', error);
                 toast.error('An error occurred. Please try again.');
             }
         }
     };
+    
+    
 
     const closeForm = () => {
         setFormActive(false);
@@ -72,7 +85,7 @@ const ReservationForm = ({ setFormActive, carDetail }) => {
                     <label>Rent/hr</label>
                     <input type="number" name="rentPerHour" id="rentPerHour" {...register("rentPerHour")} disabled />
                 </div>
-                <button type="submit">Reserve</button>
+                <button type="submit">Update Reservation</button>
                 <i className="bi bi-x-circle close-btn" onClick={closeForm}></i>
             </form>
         </div>
@@ -81,4 +94,4 @@ const ReservationForm = ({ setFormActive, carDetail }) => {
     );
 };
 
-export default ReservationForm;
+export default ReservationUpdateForm;
