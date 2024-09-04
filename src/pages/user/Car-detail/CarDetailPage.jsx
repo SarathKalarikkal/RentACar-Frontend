@@ -85,8 +85,8 @@ const reservationForm=()=>{
                         <td>{carDetail?.make}</td>
                         <th>Model</th>
                         <td>{carDetail?.name}</td>
-                        <th>Available</th>
-                        <td>Yes</td>
+                        <th>Type</th>
+                        <td>{carDetail?.type}</td>
                       </tr>
                       <tr>
                         <th>Year</th>

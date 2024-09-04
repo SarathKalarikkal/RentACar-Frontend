@@ -60,7 +60,7 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
                             </div>
                             <div className="rented-box-below">
                                 <div className="rental-btn">
-                                    <button className="edit-reservation" onClick={editHandler}>Edit</button>
+                                    <button className={`${reservation?.status === 'confirmed' ? 'd-none' : 'edit-reservation'}`} onClick={editHandler}>Edit</button>
                                     <button className="cancel-reservation" onClick={onDelete}>Cancel</button>
                                 </div>
                                 <p className="updated-status">Last updated on {updatedDate}</p>

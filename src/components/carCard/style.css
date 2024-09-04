@@ -49,6 +49,13 @@ a{
     border-radius: 3px;
     font-size: 14px;
 }
+.not-available{
+    padding: 2px 15px;
+    background: var(--Not-available-color);
+    color: var(--Not-available-text-color);
+    border-radius: 3px;
+    font-size: 14px;
+}
 .heart{
     color: red;
 }

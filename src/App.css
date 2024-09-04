@@ -13,6 +13,8 @@ body.light{
     --rating-color : rgb(241, 241, 241);
     --available-color : #bcffbc;
     --available-text-color : #00390a;
+    --Not-available-text-color : #da0a0a;
+    --Not-available-color: #fcd6c3;
     --active-color: rgb(245 245 245);
 }
 

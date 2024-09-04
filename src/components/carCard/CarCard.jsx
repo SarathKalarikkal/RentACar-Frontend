@@ -15,7 +15,9 @@ const CarCard = ({car}) => {
                       <i className="bi bi-star-fill" />
                       <span>4.8</span>
                     </div>
-                    <span className="available">Available</span>
+          
+                    <span className={car.availableStatus === 'Available' ? 'available' : 'not-available'}>{car.availableStatus}</span>
+              
                   </div>
                   <i className="bi bi-heart-fill heart" />
                 </div>
@@ -36,7 +38,7 @@ const CarCard = ({car}) => {
                   <div className="deatail">
                     <div className="model-type">
                       <img src={'../src/assets/car-model.png'} alt="" />
-                      <span>Hatchback</span>
+                      <span>{car.type}</span>
                     </div>
                     <div className="model-type">
                       <img src={'../src/assets/gear.png'} alt="" />

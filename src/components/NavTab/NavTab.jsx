@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./style.css";
+import { useForm } from 'react-hook-form';
+import axiosInstance from '../../config/axiosInstance';
 
 const VehicleTabs = ({carDetail}) => {
   const [activeTab, setActiveTab] = useState('description');
+  const [reviews, setReviews] = useState('description');
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = async(data) => {
+    const response = await axiosInstance.post(`/review/create/${carDetail._id}`, data)
+    console.log(response.data)
+  }
+
+
+  useEffect(async()=>{
+    const response = await axiosInstance.get(`/review/car/${carDetail._id}`)
+    console.log(response.data)
+    setReviews(response.data.data)
+  },[])
 
   return (
     <div className="col-12 detail-tabs">
@@ -48,44 +66,36 @@ const VehicleTabs = ({carDetail}) => {
 
         {activeTab === 'reviews' && (
           <div className="reviews tab-pane fade show active" role="tabpanel">
-            
-            <div className="review-box">
-              <h6>John Doe</h6>
-              <div className="star-rating">
-                ⭐⭐⭐⭐⭐
-              </div>
-              <p>
-                Great car! Smooth ride and very comfortable. Highly recommend.
-              </p>
-            </div>
-            <div className="review-box">
-              <h6>Rohit JP</h6>
-              <div className="star-rating">
-                ⭐⭐⭐⭐
-              </div>
-              <p>
-                Great car! Smooth ride and very comfortable. Highly recommend.
-              </p>
-            </div>
-            {/* Add more review boxes as needed */}
+            {
+              reviews?.map((review)=>{
+                return(
+                  <div className="review-box">
+                  <h6>{review?.user.name}</h6>
+                  <div className="star-rating">
+                    {review?.rating}
+                  </div>
+                  <p>
+                   {review?.comment}
+                  </p>
+                </div>
+                )
+              })
+            }
+           
+           
           </div>
         )}
 
         {activeTab === 'addReview' && (
           <div className=" addReview tab-pane fade show active" role="tabpanel">
             <h5>Leave a Review</h5>
+            <form onClick={handleSubmit(onSubmit)}>
             <div className="form-group">
-              <input type="text" className="form-control" placeholder="Your name" />
-            </div>
-            <div className="form-group">
-              <input type="email" className="form-control" placeholder="Your Email" />
-            </div>
-            <div className="form-group">
-              <textarea className="form-control" rows="3" placeholder="Your Comment"></textarea>
+              <textarea className="form-control" rows="3" placeholder="Your Comment" {...register("comment")}></textarea>
             </div>
             <div className="form-group">
               <label>Rating:</label>
-              <select className="form-control">
+              <select className="form-control" {...register("rating")}>
                 <option value="5">⭐⭐⭐⭐⭐</option>
                 <option value="4">⭐⭐⭐⭐</option>
                 <option value="3">⭐⭐⭐</option>
@@ -94,6 +104,7 @@ const VehicleTabs = ({carDetail}) => {
               </select>
             </div>
             <button className="post-btn" type="submit">Post Comment</button>
+            </form>
           </div>
         )}
       </div>
