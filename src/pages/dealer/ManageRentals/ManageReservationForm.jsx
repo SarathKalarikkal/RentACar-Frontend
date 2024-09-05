@@ -4,6 +4,7 @@ import axiosInstance from '../../../config/axiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
 
 const ManageReservationForm = ({ reservation, setFormActive }) => {
+  
   const startDate = formatDate(reservation?.startDate);
   const endDate = formatDate(reservation?.endDate);
 

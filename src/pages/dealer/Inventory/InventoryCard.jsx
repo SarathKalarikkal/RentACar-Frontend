@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const InventoryCard = ({car, ondelete}) => {
+const InventoryCard = ({car, handleDeleteCar}) => {
 
 
 
@@ -22,7 +22,7 @@ const InventoryCard = ({car, ondelete}) => {
                         <button className='edit-btn'>
                           <Link to={`/dealer/car/edit/${car._id}`}>Edit</Link>
                         </button>
-                        <button className='delete-btn' onClick={ondelete}>Delete</button>
+                        <button className='delete-btn' onClick={()=>handleDeleteCar(car._id)}>Delete</button>
                       </div>
                     </div>
                   </div>

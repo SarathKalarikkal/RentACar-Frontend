@@ -4,6 +4,7 @@ import ReservationForm from '../../../components/ReservationForm/ReservationForm
 import axiosInstance from '../../../config/axiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
 import ReservationUpdateForm from '../../../components/user/ReservationUpdateForm';
+import { loadStripe } from "@stripe/stripe-js";
 
 
 
@@ -26,11 +27,29 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
     };
 
 
-// const cancelReservation =async()=>{
-//    const response = await axiosInstance.delete(`/reservation/reservation/${reservation?._id}`)
-//    toast.success(response.data.message)
-// }
+    const stripePromise = loadStripe('pk_test_51PqGce1kn5yu3K0FMOmwEmLXH29NaOC7EDP4RbveH8X5ZNdY9ZfJEWTUP664PvwWZzwtzENbkggNiXSgW0Y8ZmoW00Y4jgPcIk');
 
+const makePayment = async () => {
+    try {
+        const stripe = await stripePromise;
+
+        // Create a Checkout Session
+        const { data } = await axiosInstance.post('/payment/create-checkout', { reservation });
+
+        // Redirect to Checkout
+        const result = await stripe.redirectToCheckout({
+            sessionId: data.id
+        });
+
+        if (result.error) {
+            // Show error to your customer (e.g., insufficient funds, card error, etc.)
+            toast.error(result.error.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        toast.error('An error occurred. Please try again.');
+    }
+};
 
 
     return (
@@ -56,12 +75,14 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
                             </div>
                             <div className="rented-box">
                                 <label>Total Price :</label>
-                                <span>{reservation?.rentPerHour} Rs</span>
+                                <span>{reservation?.totalRate} Rs</span>
                             </div>
                             <div className="rented-box-below">
                                 <div className="rental-btn">
                                     <button className={`${reservation?.status === 'confirmed' ? 'd-none' : 'edit-reservation'}`} onClick={editHandler}>Edit</button>
-                                    <button className="cancel-reservation" onClick={onDelete}>Cancel</button>
+                                    <button className={`${reservation?.status === 'confirmed' ? 'd-none' : 'cancel-reservation'}`} onClick={onDelete}>Cancel</button>
+                                    <button className={`${reservation?.status === 'confirmed' ? 'pay-reservation' : 'd-none'}`} onClick={makePayment} >Pay</button>
+                                    
                                 </div>
                                 <p className="updated-status">Last updated on {updatedDate}</p>
                             </div>

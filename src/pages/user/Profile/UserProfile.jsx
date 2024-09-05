@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./style.css"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { formatDate } from '../../../math/formatDate'
 import toast, { Toaster } from 'react-hot-toast'
 import axiosInstance from '../../../config/axiosInstance'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import { setUserInfo } from '../../../Redux/features/userSlice'
+import { useForm } from 'react-hook-form'
 
 const UserProfile = () => {
+
+  const [activeEdit, setActiveEdit] = useState(false)
+
+  const { register, handleSubmit, reset } = useForm();
+  const dispatch = useDispatch()
 
 const user =  useSelector((state)=>state.user.userInfo)
 console.log("user details",user)
@@ -32,6 +39,29 @@ const userLogout = async()=>{
 }
 
 
+const handleEditProfile = ()=>{
+  setActiveEdit(true)
+}
+
+const onSubmit = async (data) => {
+  console.log(data)
+
+try {
+   const response = await axiosInstance.put(`/user/update/${user._id}`, data)
+   console.log(response.data)
+   dispatch(setUserInfo(response.data));
+} catch (error) {
+  console.log(error)
+} 
+
+ 
+}
+
+const handleClose =  () => {
+  setActiveEdit(false)
+}
+
+
   return (
     <>
     <Toaster />
@@ -52,9 +82,9 @@ const userLogout = async()=>{
           <div className="profile-usertitle-email">{user?.email}</div>
         </div>
         <div className="profile-userbuttons">
-          <a href="#" className="btn btn-outline-primary btn-sm">
+          <button onClick={handleEditProfile} className="btn btn-outline-primary btn-sm">
             Edit Profile
-          </a>
+          </button>
           <a href="#" className="btn btn-outline-danger btn-sm" onClick={userLogout}>
             Logout
           </a>
@@ -133,6 +163,55 @@ const userLogout = async()=>{
   </div>
 </div>
 
+{
+activeEdit && 
+
+  <div className="container">
+     <form onSubmit={handleSubmit(onSubmit)} className="dealer-edit-form">
+      <div className="row">
+        <div className="col-md-6 mb-3">
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">Name</label>
+            <input type="text" id="name" {...register('name')} className="form-control" placeholder="Enter your name" />
+          </div>
+        </div>
+
+        <div className="col-md-6 mb-3">
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">Email</label>
+            <input type="email" id="email" {...register('email')} className="form-control" placeholder="Enter your email" />
+          </div>
+        </div>
+
+        <div className="col-md-6 mb-3">
+          <div className="form-group">
+            <label htmlFor="mobile" className="form-label">Mobile</label>
+            <input type="text" id="mobile" {...register('mobile')} className="form-control" placeholder="Enter your mobile number" />
+          </div>
+        </div>
+
+        <div className="col-md-6 mb-3">
+          <div className="form-group">
+            <label htmlFor="location" className="form-label">Location</label>
+            <input id="address" {...register('location')} className="form-control"  placeholder="Enter your Location"></input>
+          </div>
+        </div>
+
+        <div className="col-md-6 mb-3">
+          <div className="form-group">
+            <label htmlFor="profilePic" className="form-label">Profile Picture</label>
+            <input type="file" id="profilePic" accept="image/*" className="form-control" />
+          </div>
+        </div>
+
+        <div className="col-md-6 mb-3 d-flex justify-content-between">
+          <button type="submit" className="btn btn-primary">Update Profile</button>
+          <button type="button" className="btn btn-secondary" onClick={handleClose}>Close</button>
+        </div>
+      </div>
+    </form>
+  </div>
+}
 
     </>
   )

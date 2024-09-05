@@ -38,11 +38,17 @@ console.log("asdasd",dealerReservationList);
    <div className="container mt-5">
        <div className="row g-3">
          {
-          dealerReservationList?.map((reservation)=>{
-            return(
-              <ManageRentalCard key={reservation._id}  reservation={reservation}/>
-            )
-          })
+
+          dealerReservationList.length > 0 ? (
+            dealerReservationList?.map((reservation)=>{
+              return(
+                <ManageRentalCard key={reservation._id}  reservation={reservation}/>
+              )
+            })
+          ) : (
+            <p>Currently No reservation found..!</p>
+          )
+          
          }
          
        </div>

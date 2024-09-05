@@ -23,7 +23,14 @@ const Inventory = () => {
     fetchInventory();
   }, []);
 
-  console.log("iventory", inventoryList);
+  const handleDeleteCar = async (id) => {
+    try {
+      await axiosInstance.delete(`/car/delete/${id}`);
+      setInventoryList(inventoryList.filter(car => car._id !== id))
+    } catch (error) {
+      console.error('Error deleting car', error);
+    }
+  };
   
 
   if (loading) {
@@ -44,7 +51,7 @@ const Inventory = () => {
             {inventoryList.length > 0 ? (
               inventoryList?.map((car) => {
                  return(
-                  <InventoryCard car={car} key={car._id}/>
+                  <InventoryCard car={car} key={car._id} handleDeleteCar={handleDeleteCar}/>
                  )
               })
             ) : (
