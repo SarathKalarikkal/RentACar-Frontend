@@ -24,7 +24,7 @@ import AddCar from "../pages/dealer/AddCar/AddCar";
 import AdminHomePage from "../pages/admin/AdminHomePage/AdminHomePage";
 import EditCar from "../pages/dealer/EditCar.jsx/EditCar";
 import { UserAuth } from "./ProtectedRoute/UserAuth";
-import { DealerAuth } from "./ProtectedRoute/dealerAuth";
+// import { DealerAuth } from "./ProtectedRoute/dealerAuth";
 import UsersPage from "../pages/admin/allUsers/UsersPage";
 import DealersPage from "../pages/admin/allDealers/DealersPage";
 import CarsPage from "../pages/admin/allCars/CarsPage";
@@ -32,6 +32,7 @@ import AllRentalsPage from "../pages/admin/allRentals/AllRentalsPage";
 import { AdminAuth } from "./ProtectedRoute/AdminAuth";
 import Success from "../pages/user/Success";
 import Cancel from "../pages/user/Cancel";
+import { DealerAuth } from "./ProtectedRoute/dealerAuth";
 
 
 
