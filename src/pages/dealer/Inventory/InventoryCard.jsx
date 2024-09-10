@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const InventoryCard = ({car, handleDeleteCar}) => {
+export const InventoryCard = ({car, handleDeleteCar}) => {
 
 const [deletePopup, setDeletepopup] = useState(false)
 
@@ -44,4 +44,3 @@ const [deletePopup, setDeletepopup] = useState(false)
   )
 }
 
-export default InventoryCard

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import "./style.css"
 import { Link } from 'react-router-dom'
 import axiosInstance from '../../../config/axiosInstance'
-import InventoryCard from './inventoryCard'
+import { InventoryCard } from './inventoryCard'
+
 
 
 const Inventory = () => {
