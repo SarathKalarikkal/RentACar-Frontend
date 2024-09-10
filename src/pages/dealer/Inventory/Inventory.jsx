@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import axiosInstance from '../../../config/axiosInstance'
 import InventoryCard from './inventoryCard'
 
+
 const Inventory = () => {
   const [inventoryList, setInventoryList] = useState([]);
   const [loading, setLoading] = useState(true);
