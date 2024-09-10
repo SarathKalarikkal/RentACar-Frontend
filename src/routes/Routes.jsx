@@ -32,7 +32,7 @@ import AllRentalsPage from "../pages/admin/allRentals/AllRentalsPage";
 import { AdminAuth } from "./ProtectedRoute/AdminAuth";
 import Success from "../pages/user/Success";
 import Cancel from "../pages/user/Cancel";
-import { DealerAuth } from "./ProtectedRoute/DealerAuth.js";
+import { DealerAuth } from "./ProtectedRoute/DealerAuth";
 
 
 
