@@ -3,6 +3,14 @@
     align-items: center;
     justify-content: center;
     height:100vh;
+    background: url('../../../assets//bg-1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body.dark .signup-wrapper{
+    background: none
 }
 .signup-wrapper form{
     background-color: var(--secondary-color);

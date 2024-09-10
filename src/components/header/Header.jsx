@@ -65,7 +65,7 @@ const activeLink = (path)=>{
           <Link className={`nav-link ${activeLink('/contact') ? 'active' : ''}`} to={"/contact"}>Contact</Link>
         </li>
         <li className="nav-item">
-          <Link className={`nav-link ${activeLink('/common/login') ? 'active' : ''}`} to={"/common/login"}>Login/Register</Link>
+          <Link className={`nav-link join-us ${activeLink('/common/login') ? 'active' : ''}`} to={"/common/login"}>Join Us</Link>
         </li>
         
       </ul>

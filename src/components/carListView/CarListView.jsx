@@ -6,12 +6,12 @@ const CarListView = ({car}) => {
     <div className="car-box-list-view">
     <div className="list-rating-wrap">
       <div className="list-rating">
-        <span className="rating me-2">
+        {/* <span className="rating me-2">
           <i className="bi bi-star-fill" /> 4.8
-        </span>
-        <span className="available">Available</span>
+        </span> */}
+        <span className={car.availableStatus === 'Available' ? 'available' : 'not-available'}>{car?.availableStatus}</span>
       </div>
-      <i className="bi bi-heart-fill heart" />
+      {/* <i className="bi bi-heart-fill heart" /> */}
     </div>
     <div className="left">
       <img src={car?.images[0]} alt="" />

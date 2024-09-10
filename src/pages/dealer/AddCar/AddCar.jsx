@@ -1,59 +1,99 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import './style.css';
 import axiosInstance from '../../../config/axiosInstance';
 import toast from 'react-hot-toast';
-
+import './style.css';
 
 const AddCar = () => {
-  const { register, handleSubmit, reset } = useForm();
-  const [imagePreviews, setImagePreviews] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    make: '',
+    model: '',
+    fuelType: '',
+    color: '',
+    type: '',
+    transmission: 'Automatic', 
+    seating: '',
+    mileage: '',
+    rentPerHour: '',
+    location: '',
+    description: '',
+  });
 
-  const onSubmit = async (data) => {
+  const [images, setImages] = useState([]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    setImages(e.target.files);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
     try {
-      const formData = new FormData();
-
-      // Append each form field to FormData
-      for (const key in data) {
-        if (key === "images") {
-          // Append multiple images
-          Array.from(data.images).forEach((file) => formData.append("images", file));
-        } else {
-          formData.append(key, data[key]);
-        }
-      }
-
-      const response = await axiosInstance.post('/car/create', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const data = new FormData();
+      
+      // Append text fields
+      Object.keys(formData).forEach((key) => {
+        data.append(key, formData[key]);
       });
-
+      
+      // Append file inputs
+      for (let i = 0; i < images.length; i++) {
+        data.append('images', images[i]);
+      }
+  
+      const response = await axiosInstance.post('/car/create', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log("Successfully uploaded");
       toast.success(response.data.message);
-      reset(); // Reset the form after successful submission
-      setImagePreviews([]); // Clear the image previews
+      
+      // Reset form
+      setFormData({
+        name: '',
+        make: '',
+        model: '',
+        fuelType: '',
+        color: '',
+        type: '',
+        transmission: 'Automatic',
+        seating: '',
+        mileage: '',
+        rentPerHour: '',
+        location: '',
+        description: '',
+      });
+      setImages([]);
     } catch (error) {
       toast.error('Failed to add car. Please try again.');
-      console.error("There was an error uploading the car details:", error);
+      console.error('There was an error uploading the car details:', error);
     }
   };
+  
 
-  // Handle file input change to preview images
-  const handleImageChange = (event) => {
-    const files = event.target.files;
-    const previews = Array.from(files).map(file => URL.createObjectURL(file));
-    setImagePreviews(previews);
-  };
+  
 
   return (
     <>
-      <section className='addCar-header'>
+      <section className="addCar-header">
         <div className="container">
           <h1>ADD A CAR</h1>
         </div>
       </section>
 
-      <section className='py-5'>
+      <section className="py-5">
         <div className="container">
-          <form id="add-car-form" onSubmit={handleSubmit(onSubmit)}>
+          <form id="add-car-form" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
@@ -64,8 +104,9 @@ const AddCar = () => {
                     id="name"
                     name="name"
                     placeholder="Enter car name"
+                    value={formData.name}
+                    onChange={handleChange}
                     required
-                    {...register("name")}
                   />
                 </div>
                 <div className="form-group">
@@ -76,8 +117,9 @@ const AddCar = () => {
                     id="make"
                     name="make"
                     placeholder="Enter car make"
+                    value={formData.make}
+                    onChange={handleChange}
                     required
-                    {...register("make")}
                   />
                 </div>
                 <div className="form-group">
@@ -88,8 +130,9 @@ const AddCar = () => {
                     id="model"
                     name="model"
                     placeholder="Enter car model"
+                    value={formData.model}
+                    onChange={handleChange}
                     required
-                    {...register("model")}
                   />
                 </div>
                 <div className="form-group">
@@ -98,8 +141,9 @@ const AddCar = () => {
                     className="form-control"
                     id="fuelType"
                     name="fuelType"
+                    value={formData.fuelType}
+                    onChange={handleChange}
                     required
-                    {...register("fuelType")}
                   >
                     <option value="">Select Fuel Type</option>
                     <option value="Gasoline">Gasoline</option>
@@ -117,8 +161,9 @@ const AddCar = () => {
                     id="color"
                     name="color"
                     placeholder="Enter car color"
+                    value={formData.color}
+                    onChange={handleChange}
                     required
-                    {...register("color")}
                   />
                 </div>
                 <div className="form-group">
@@ -129,8 +174,9 @@ const AddCar = () => {
                     id="type"
                     name="type"
                     placeholder="Enter car type"
+                    value={formData.type}
+                    onChange={handleChange}
                     required
-                    {...register("type")}
                   />
                 </div>
 
@@ -143,8 +189,8 @@ const AddCar = () => {
                         id="transmission-automatic"
                         name="transmission"
                         value="Automatic"
-                        defaultChecked
-                        {...register("transmission")}
+                        checked={formData.transmission === 'Automatic'}
+                        onChange={handleChange}
                       />
                       Automatic
                     </label>
@@ -154,7 +200,8 @@ const AddCar = () => {
                         id="transmission-manual"
                         name="transmission"
                         value="Manual"
-                        {...register("transmission")}
+                        checked={formData.transmission === 'Manual'}
+                        onChange={handleChange}
                       />
                       Manual
                     </label>
@@ -168,8 +215,9 @@ const AddCar = () => {
                     className="form-control"
                     id="seating"
                     name="seating"
+                    value={formData.seating}
+                    onChange={handleChange}
                     required
-                    {...register("seating")}
                   >
                     <option value="">Select Seating Capacity</option>
                     <option value={2}>2</option>
@@ -186,8 +234,9 @@ const AddCar = () => {
                     id="mileage"
                     name="mileage"
                     placeholder="Enter mileage"
+                    value={formData.mileage}
+                    onChange={handleChange}
                     required
-                    {...register("mileage")}
                   />
                 </div>
                 <div className="form-group">
@@ -198,20 +247,22 @@ const AddCar = () => {
                     id="rentPerHour"
                     name="rentPerHour"
                     placeholder="Enter rent per hour"
+                    value={formData.rentPerHour}
+                    onChange={handleChange}
                     required
-                    {...register("rentPerHour")}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="rentPerHour">Location</label>
+                  <label htmlFor="location">Location</label>
                   <input
                     type="text"
                     className="form-control"
                     id="location"
                     name="location"
                     placeholder="Enter location"
+                    value={formData.location}
+                    onChange={handleChange}
                     required
-                    {...register("location")}
                   />
                 </div>
                 <div className="form-group">
@@ -222,33 +273,25 @@ const AddCar = () => {
                     name="description"
                     rows={4}
                     placeholder="Enter a brief description"
+                    value={formData.description}
+                    onChange={handleChange}
                     required
-                    {...register("description")}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="carImage">Car Images</label>
+                  <label htmlFor="carImage">
+                    Car Images (Upload Atleast 5 images)
+                  </label>
                   <input
                     type="file"
                     className="form-control-file"
                     id="carImage"
                     name="images"
                     multiple
-                    required
-                    {...register("images")}
-                    onChange={handleImageChange}
+                    onChange={handleFileChange}
                   />
-                  <div id="imagePreview" className='image-preview'>
-                    {imagePreviews.map((preview, index) => (
-                      <img
-                        key={index}
-                        src={preview}
-                        alt={`Preview ${index}`}
-                        className="img-thumbnail"
-                      />
-                    ))}
-                  </div>
                 </div>
+              
                 <button type="submit" className="addCar-btn main-btn">
                   Add Car
                 </button>

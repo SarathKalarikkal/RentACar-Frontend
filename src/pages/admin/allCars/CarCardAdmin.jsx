@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./style.css"
+import CarView from './CarView'
 
 const CarCardAdmin = ({car}) => {
+
+  const [carView, setCarView] = useState(false)
+  const handleView =()=>{
+    setCarView(true)
+  }
+  const closeView =()=>{
+    setCarView(false)
+  }
+
+
   return (
     <>
-    <div className="col-md-3">
+    <div className="col-12 col-md-6 col-lg-4 col-xl-3">
     <div className="car-card">
   <img src={car?.images[0]} alt="Car Photo" />
   <h3>{car?.make}</h3>
@@ -15,10 +26,13 @@ const CarCardAdmin = ({car}) => {
   <p>
     <strong>Rent Per Hour:</strong>{car?.rentPerHour}.Rs
   </p>
-  <a href="#" className="view-button">
+  <button onClick={handleView}  className="view-button">
     View
-  </a>
+  </button >
 </div>
+{
+              carView &&  <CarView closeView={closeView} car={car}/>
+}
 
     </div>
   </>

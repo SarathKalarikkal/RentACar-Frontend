@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+
 // Create an Axios instance with default configurations
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000/api/v1",
+    baseURL: import.meta.env.VITE_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -10,3 +11,4 @@ const axiosInstance = axios.create({
 });
 
 export default axiosInstance;
+console.log()

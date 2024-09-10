@@ -30,6 +30,8 @@ import DealersPage from "../pages/admin/allDealers/DealersPage";
 import CarsPage from "../pages/admin/allCars/CarsPage";
 import AllRentalsPage from "../pages/admin/allRentals/AllRentalsPage";
 import { AdminAuth } from "./ProtectedRoute/AdminAuth";
+import Success from "../pages/user/Success";
+import Cancel from "../pages/user/Cancel";
 
 
 
@@ -68,6 +70,8 @@ export const router = createBrowserRouter([
             { path : "myrentals", element: <MyRentals /> },
             { path : "notification", element: <UserNotification /> },
             { path : "contact", element: <Contact /> },
+            { path : "payment/success", element: <Success/>},
+            { path : "payment/cancel", element: <Cancel/>},
         ]
       },
       {
@@ -76,10 +80,10 @@ export const router = createBrowserRouter([
         children : [
             { path : '', element : <HomePage /> },
             { path : "carlist", element: <CarList /> },
-            {
-              path : "car-detail/:id",
-              element: <DealerAuth><CarDetailPage /></DealerAuth>
-            },
+            // {
+            //   path : "car-detail/:id",
+            //   element: <DealerAuth><CarDetailPage /></DealerAuth>
+            // },
             { path : "car/edit/:id", element: <EditCar /> },
             { path : "profile", element: <DealerProfile /> },
             { path : "managerentals", element: <Rentals /> },

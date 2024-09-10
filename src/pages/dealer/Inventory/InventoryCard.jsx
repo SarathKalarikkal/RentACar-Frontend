@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const InventoryCard = ({car, handleDeleteCar}) => {
 
-
+const [deletePopup, setDeletepopup] = useState(false)
 
   return (
     <>
@@ -22,11 +22,24 @@ const InventoryCard = ({car, handleDeleteCar}) => {
                         <button className='edit-btn'>
                           <Link to={`/dealer/car/edit/${car._id}`}>Edit</Link>
                         </button>
-                        <button className='delete-btn' onClick={()=>handleDeleteCar(car._id)}>Delete</button>
+                        <button className='delete-btn' onClick={()=>setDeletepopup(!deletePopup)}>Delete</button>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {
+                  deletePopup && 
+                  <>
+                   <div className='delete-popup'>
+                         <div>
+                            <p>Are you sure, you want to delete the car?</p>
+                            <button className='yes' onClick={()=>handleDeleteCar(car._id)}>Yes</button>
+                            <button className='no' onClick={()=>setDeletepopup(!deletePopup)}>No</button>
+                         </div>
+                   </div>
+                  </>
+                }
     </>
   )
 }

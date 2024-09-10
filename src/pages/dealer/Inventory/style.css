@@ -38,12 +38,21 @@ background-size: cover;
   background: none;
   transition: 0.2s;
 }
+ .car-box-list-view .left  img{
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio:1 ;
+    height: 200px;
+}
 
 .inventory-btns .edit-btn{
    border: 1px solid rgb(0, 170, 255);
-   color: rgb(0, 170, 255);
+
 }
 .inventory-btns .edit-btn:hover{
+  background-color:rgb(0, 170, 255) ;
+}
+.inventory-btns .edit-btn:hover  a{
   background-color:rgb(0, 170, 255) ;
   color: white!important;
 }
@@ -58,9 +67,7 @@ background-size: cover;
 
 
 @media screen and (max-width:768px){
-  .car-box-list-view .left {
-    width: 100%;
-}
+ 
 .car-box-list-view {
   display: flex;
   flex-direction: column;
@@ -69,9 +76,40 @@ background-size: cover;
   padding: 10px;
  width: 100%;
 }
-.car-box-list-view .left img {
-  width: 100%;
-  object-fit: contain;
-  aspect-ratio: none;
+
 }
+
+.delete-popup{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999999;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.589);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delete-popup div{
+  width: 400px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+.delete-popup div button{
+  border: 0;
+  outline: 0;
+  padding: 5px;
+  margin-right: 10px;
+  width: 70px;
+  border-radius: 3px;
+  color: white;
+}
+.delete-popup div .yes{
+  background-color: red;
+  
+}
+.delete-popup div .no{
+  background-color: rgb(31, 192, 3);
 }

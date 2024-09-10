@@ -9,6 +9,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 
 const UserReservationCard = ({ reservation, onDelete  }) => {
+
     const startDate = formatDate(reservation?.startDate);
     const endDate = formatDate(reservation?.endDate);
     const updatedDate = formatDate(reservation?.updatedAt);
@@ -25,9 +26,10 @@ const UserReservationCard = ({ reservation, onDelete  }) => {
     const closeForm = () => {
         setFormActive(false);
     };
+    
 
 
-    const stripePromise = loadStripe('pk_test_51PqGce1kn5yu3K0FMOmwEmLXH29NaOC7EDP4RbveH8X5ZNdY9ZfJEWTUP664PvwWZzwtzENbkggNiXSgW0Y8ZmoW00Y4jgPcIk');
+    const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
 
 const makePayment = async () => {
     try {
@@ -36,6 +38,8 @@ const makePayment = async () => {
         // Create a Checkout Session
         const { data } = await axiosInstance.post('/payment/create-checkout', { reservation });
 
+
+        
         // Redirect to Checkout
         const result = await stripe.redirectToCheckout({
             sessionId: data.id
@@ -59,7 +63,7 @@ const makePayment = async () => {
                 <div className="rent-card-long mb-3 row">
                     <div className="col-md-4">
                         <div className="rental-img">
-                            <img src={reservation?.car.images[0]} alt="" />
+                            <img src={reservation?.car?.images[0]} alt="" />
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -82,6 +86,7 @@ const makePayment = async () => {
                                     <button className={`${reservation?.status === 'confirmed' ? 'd-none' : 'edit-reservation'}`} onClick={editHandler}>Edit</button>
                                     <button className={`${reservation?.status === 'confirmed' ? 'd-none' : 'cancel-reservation'}`} onClick={onDelete}>Cancel</button>
                                     <button className={`${reservation?.status === 'confirmed' ? 'pay-reservation' : 'd-none'}`} onClick={makePayment} >Pay</button>
+                                    <button className={`${reservation?.status === 'payed' ? 'return' : 'd-none'}`}  >Return</button>
                                     
                                 </div>
                                 <p className="updated-status">Last updated on {updatedDate}</p>

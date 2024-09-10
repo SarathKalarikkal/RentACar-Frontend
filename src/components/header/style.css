@@ -41,3 +41,10 @@ a.nav-link:hover::after,  a.nav-link.active::after{
    transition: 0.5s;
 }
 
+.join-us{
+   background-color: var(--brand-color);
+   color: white !important;
+   padding: 2px 10px!important;
+   border-radius: 3px;
+   font-weight: 600!important;
+}

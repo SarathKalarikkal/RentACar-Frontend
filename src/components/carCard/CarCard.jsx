@@ -1,27 +1,21 @@
 import React from 'react'
 import './style.css'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const CarCard = ({car}) => {
 
-
+const {userInfo} = useSelector((state)=>state.user)
+console.log("usersssss", userInfo)
 
   return (
-          <Link to={`/user/car-detail/${car?._id}`}>
+    
+          <Link to={userInfo? (`/user/car-detail/${car?._id}`) : ('/common/login')}>
               <div className="car-box">
-                <div className="top">
-                  <div className="top-left">
-                    <div className="rating">
-                      <i className="bi bi-star-fill" />
-                      <span>4.8</span>
-                    </div>
-          
-                    <span className={car.availableStatus === 'Available' ? 'available' : 'not-available'}>{car.availableStatus}</span>
-              
-                  </div>
-                  <i className="bi bi-heart-fill heart" />
-                </div>
+
                 <div className="mid">
+                <span className={car.availableStatus === 'Available' ? 'available' : 'not-available'}>{car.availableStatus}</span>
+
                   <img src={car?.images[0]} alt="" />
                 </div>
                 <div className="bottom">

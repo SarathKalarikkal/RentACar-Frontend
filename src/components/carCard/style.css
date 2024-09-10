@@ -14,7 +14,18 @@ a{
     width: 100%;
 }
 .car-box .mid{
-    padding: 32px
+    position: relative;
+}
+.car-box .mid img{
+   width: 100%;
+   object-fit: cover;
+   aspect-ratio:1 ;
+   height: 250px;
+}
+.car-box .mid span{
+    position: absolute;
+    top: 15px;
+    left:15px;
 }
 .car-box .top{
     display: flex;
@@ -105,4 +116,10 @@ a{
 }
 .model-type img{
     width:20px ;
+}
+
+@media screen and (max-width:768px){
+    .bottom {
+        padding: 10px 8px 10px 8px;
+    }
 }

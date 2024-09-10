@@ -55,7 +55,7 @@ const adminsignout = async()=>{
             <Link to={'/admin'} className={`nav-link ${activeLink('/admin') ? 'active' : ''}`} aria-current="page">
                 <div> 
                 <MdOutlineDashboard />
-                <span className="ms-2">Dashboard</span>
+                <span className="ms-2 sidebar-span">Dashboard</span>
                 </div>
             </Link>
           </li>
@@ -63,7 +63,7 @@ const adminsignout = async()=>{
             <Link to={'/admin/alluser'} className={`nav-link ${activeLink('/admin/alluser') ? 'active' : ''}`}>
                 <div>
                 <FaRegUser />
-                <span className="ms-2">Users</span>
+                <span className="ms-2 sidebar-span">Users</span>
                 </div>
             </Link>
           </li>
@@ -71,7 +71,7 @@ const adminsignout = async()=>{
             <Link to={'/admin/alldealers'} className={`nav-link ${activeLink('/admin/alldealers') ? 'active' : ''}`}>
                <div>
                <FaRegUser />
-               <span className="ms-2">Dealers</span>
+               <span className="ms-2 sidebar-span">Dealers</span>
                </div>
             </Link>
           </li>
@@ -80,7 +80,7 @@ const adminsignout = async()=>{
              
                 <div>
                 <IoCarSportOutline />
-                <span className="ms-2">Cars</span>
+                <span className="ms-2 sidebar-span">Cars</span>
                 </div>
             </Link>
           </li>
@@ -88,7 +88,7 @@ const adminsignout = async()=>{
             <Link to={'/admin/allrentals'} className={`nav-link ${activeLink('/admin/allrentals') ? 'active' : ''}`}>
               <div>
               <HiMiniTicket />
-              <span className="ms-2"> Rentals</span>
+              <span className="ms-2 sidebar-span"> Rentals</span>
               </div>
             </Link>
           </li>

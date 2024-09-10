@@ -29,13 +29,18 @@ const AllRentalsPage = () => {
            <div className="container">
           <div className="row">
           {
-            allReservations?.map((reservation)=>{
-              return(
-                <AdminRentalCard reservation={reservation}/>
-              )
-            })
+            allReservations?.length > 0 ? (
+              <>
+              {allReservations?.map((reservation) => (
+                <AdminRentalCard key={reservation.id} reservation={reservation} />
+              ))}
+              </>
+            )
+            :
+            (
+              <p className='sample-text'>No reservations Found</p>
+            )
           }
-
           </div>
            </div>
       </div>

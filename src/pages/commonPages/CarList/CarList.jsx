@@ -78,7 +78,7 @@ const CarList = () => {
                 <div className="row">
                   <div className="row top-controls mb-4">
                     <form className="d-flex align-items-center gap-3 col-md-8" onSubmit={handleSubmit(onSubmit)}>
-                      <div className="flex-grow-1">
+                      <div className="col-md-3">
                         <select className="form-select" {...register("sort")}>
                           <option value="">SORT</option>
                           <option value="lowToHigh">Low to high</option>
@@ -86,7 +86,7 @@ const CarList = () => {
                         </select>
                       </div>
 
-                      <div className="flex-grow-1">
+                      <div className="col-md-3">
                         <select className="form-select" {...register("type")}>
                           <option value="">Type</option>
                           {[...new Set(carList.map((car) => car.type.toLowerCase()))].map((type) => (
@@ -97,7 +97,7 @@ const CarList = () => {
                         </select>
                       </div>
 
-                      <div className="flex-grow-1">
+                      <div className="col-md-3">
                         <select className="form-select" {...register("transmission")}>
                           <option value="">Transmission</option>
                           {[...new Set(carList.map((car) => car.transmission.toLowerCase()))].map((transmission) => (
@@ -108,16 +108,18 @@ const CarList = () => {
                         </select>
                       </div>
 
-                      <div>
-                        <button type="submit" className="filter-btn">
+                      <div className='col'>
+                        <button type="submit" className="filter-btn ">
                           Filter
                         </button>
                       </div>
 
-                      <button type="button" className="reset-button" onClick={handleReset}>
+                      <div className='col'>
+                      <button type="button" className="reset-btn" onClick={handleReset}>
                         <i className="bi bi-arrow-clockwise me-1" />
-                        Reset all
+                        
                       </button>
+                      </div>
                     </form>
 
                     <div className="col-md-4 text-end view-switcher-wrap">

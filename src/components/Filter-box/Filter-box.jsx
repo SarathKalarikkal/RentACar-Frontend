@@ -38,7 +38,7 @@ const navigate = useNavigate()
 
   // Handle form submit
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent form default submission
+    e.preventDefault();
     dispatch(setFilteredData({
       make: selectedMake,
       model: selectedModel,
@@ -57,7 +57,7 @@ const navigate = useNavigate()
   };
 
 
-
+  const uniqueLocations = [...new Set(carList.map(car => car.location))];
   return (
     <div className="search-container">
       <h3>I'M LOOKING FOR</h3>
@@ -113,15 +113,15 @@ const navigate = useNavigate()
               Location
             </label>
             <select id="location" className="form-select" value={selectedLocation} onChange={handleChange}>
-              <option value="" disabled>
-                Location
-              </option>
-              {carList?.map((car) => (
-                <option key={car.id} value={car.location}>
-                  {car.location}
-                </option>
-              ))}
-            </select>
+  <option value="" disabled>
+    Location
+  </option>
+  {uniqueLocations.map(location => (
+    <option key={location} value={location}>
+      {location}
+    </option>
+  ))}
+</select>
           </div>
           <button type="submit" className="btn-search main-btn small">
             SEARCH

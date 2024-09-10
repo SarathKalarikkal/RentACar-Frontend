@@ -9,7 +9,7 @@ const AdminRentalCard = ({reservation}) => {
   
   return (
     <>
-     <div className="col-md-4">
+     <div className="col-12 col-md-6 col-lg-4 col-xl-3">
      <div className="reservation-card">
   <img src={reservation?.car?.images[0] || "https://via.placeholder.com/300x200"} alt="Car Photo" />
   <h3>Reservation Details</h3>

@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.css'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -11,8 +12,7 @@ const Footer = () => {
           <div className="footer-box">
             <h2>LOGO</h2>
             <p className="footer-desc">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. At,
-              nemo?dolor sit amet consectetur adipisicing elit. A
+            Discover the freedom of the open road with our top-notch car rental services
             </p>
           </div>
         </div>
@@ -21,19 +21,17 @@ const Footer = () => {
             <h6>Useful Links</h6>
             <ul className="footer-links">
               <li>
-                <a href="#">Home</a>
+                <Link to={'/'}>Home</Link>
               </li>
               <li>
-                <a href="#">About us</a>
+                <Link to={'/about'}>About us</Link>
               </li>
               <li>
-                <a href="#">Cars</a>
+                <Link to={'/carlist'}>Cars</Link>
               </li>
+              
               <li>
-                <a href="#">Dealers</a>
-              </li>
-              <li>
-                <a href="#">Contact</a>
+                <Link to={'/contact'}>Contact</Link>
               </li>
             </ul>
           </div>

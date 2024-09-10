@@ -96,7 +96,7 @@ const DealerHeader = () => {
        </Link>
      </li>
      <li className="nav-item">
-       <Link className={`nav-link ${activeLink('/') ? 'active' : ''}`}   onClick={dealerLogout}>Logout</Link>
+       <Link className={`nav-link logout-link ${activeLink('/') ? 'active' : ''}`}   onClick={dealerLogout}>Logout</Link>
      </li>
      
    </ul>

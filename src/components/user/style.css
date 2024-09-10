@@ -70,3 +70,11 @@
    align-items: center;
    justify-content: center;
  }
+
+ .logout-link{
+   background-color: var(--brand-color);
+   color: white !important;
+   padding: 2px 10px!important;
+   border-radius: 3px;
+   font-weight: 600!important;
+}

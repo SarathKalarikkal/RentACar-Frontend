@@ -1,66 +1,69 @@
-import React, { useState } from 'react'
-import "./style.css"
-import { useDispatch, useSelector } from 'react-redux'
-import { formatDate } from '../../../math/formatDate'
-import toast, { Toaster } from 'react-hot-toast'
-import axiosInstance from '../../../config/axiosInstance'
-import Cookies from 'js-cookie'
-import { useNavigate } from 'react-router-dom'
-import { setUserInfo } from '../../../Redux/features/userSlice'
-import { useForm } from 'react-hook-form'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import axiosInstance from '../../../config/axiosInstance';
+import { setUserInfo } from '../../../Redux/features/userSlice';
+import toast, { Toaster } from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
+import { formatDate } from '../../../math/formatDate';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
-
-  const [activeEdit, setActiveEdit] = useState(false)
-
+  const [activeEdit, setActiveEdit] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.userInfo);
 
-const user =  useSelector((state)=>state.user.userInfo)
-console.log("user details",user)
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
-const Createdate = user?.updatedAt
+  const Createdate = user?.updatedAt;
+  const formattedDate = formatDate(Createdate);
+  
 
-const formattedDate = formatDate(Createdate);
+  const handleEditProfile = () => {
+    setActiveEdit(true);
+  };
 
-const userLogout = async()=>{
-  const response = await axiosInstance.get('/user/logout')
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    for (const key in data) {
+      if (data[key]) {
+        formData.append(key, data[key]);
+      }
+    }
 
- if(response.data.success === true){
-  Cookies.remove('token');
-  localStorage.removeItem('userInfo');
-  localStorage.removeItem('token');
-  toast.success(response.data.message)
-  setTimeout(()=>{
-    navigate('/')
-  },1000)   
- }
-}
+    try {
+      const response = await axiosInstance.put(`/user/update/${user._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      dispatch(setUserInfo(response.data.data));
+     
+      
+      toast.success("Profile updated successfully!");
+      setActiveEdit(false);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      toast.error("Failed to update profile. Please try again.");
+    }
+  };
 
+  const handleClose = () => {
+    setActiveEdit(false);
+  };
 
-const handleEditProfile = ()=>{
-  setActiveEdit(true)
-}
-
-const onSubmit = async (data) => {
-  console.log(data)
-
-try {
-   const response = await axiosInstance.put(`/user/update/${user._id}`, data)
-   console.log(response.data)
-   dispatch(setUserInfo(response.data));
-} catch (error) {
-  console.log(error)
-} 
-
- 
-}
-
-const handleClose =  () => {
-  setActiveEdit(false)
-}
-
+  const userLogout = async () => {
+    const response = await axiosInstance.get('/user/logout');
+    if (response.data.success === true) {
+      Cookies.remove('token');
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('token');
+      toast.success(response.data.message);
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+    }
+  };
 
   return (
     <>
@@ -72,7 +75,7 @@ const handleClose =  () => {
       <div className="profile-sidebar">
         <div className="profile-userpic">
           <img
-            src={user?.profilePic}
+            src={user?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
             className="img-fluid rounded-circle"
             alt="Profile Picture"
           />
@@ -200,7 +203,7 @@ activeEdit &&
         <div className="col-md-6 mb-3">
           <div className="form-group">
             <label htmlFor="profilePic" className="form-label">Profile Picture</label>
-            <input type="file" id="profilePic" accept="image/*" className="form-control" />
+            <input type="file" id="profilePic" accept="image/*" className="form-control" {...register('profilePic')} />
           </div>
         </div>
 

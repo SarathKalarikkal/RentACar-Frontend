@@ -31,7 +31,24 @@ useEffect(()=>{
 
 console.log("latest",carList)
 
-
+const generateCarouselItems = (items) => {
+  const chunkSize = 3;
+  const chunks = [];
+  for (let i = 0; i < items.length; i += chunkSize) {
+    chunks.push(items.slice(i, i + chunkSize));
+  }
+  return chunks.map((chunk, index) => (
+    <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+      <div className="row mt-5">
+        {chunk.map((car, carIndex) => (
+          <div key={carIndex} className="col-12 col-md-6 col-lg-4">
+            <CarCard car={car} />
+          </div>
+        ))}
+      </div>
+    </div>
+  ));
+};
 
 
 
@@ -121,82 +138,49 @@ console.log("latest",carList)
       </div>
 
       <section className="latest-offers">
-  <div className="container">
-    <div className="latest-head">
-      <h2>LATEST OFFERS</h2>
-      <hr />
-    </div>
-    <div id="carouselExampleIndicators" className="carousel slide">
-      <div className="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to={0}
-          className="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        />
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to={1}
-          aria-label="Slide 2"
-        />
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to={2}
-          aria-label="Slide 3"
-        />
-      </div>
-      <div className="carousel-inner">
-        {/* Ensure `latest` is an array and has enough items */}
-        {carList && carList.length > 0 && (
-          <>
-            <div className="carousel-item active">
-              <div className="row mt-5">
-                {carList.slice(0, 3).map((car, index) => (
-                  <div key={index} className="col-12 col-md-6 col-lg-4">
-                    <CarCard car={car} />
-                  </div>
-                ))}
-              </div>
+        <div className="container">
+          <div className="latest-head">
+            <h2>LATEST OFFERS</h2>
+            <hr />
+          </div>
+          <div id="carouselOffers" className="carousel slide" data-bs-ride="carousel">
+            <div className="carousel-indicators">
+              {carList && carList.length > 0 && generateCarouselItems(carList).map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  data-bs-target="#carouselOffers"
+                  data-bs-slide-to={index}
+                  className={index === 0 ? 'active' : ''}
+                  aria-current={index === 0 ? 'true' : 'false'}
+                  aria-label={`Slide ${index + 1}`}
+                />
+              ))}
             </div>
-            {carList.length > 3 && (
-              <div className="carousel-item">
-                <div className="row mt-5">
-                  {carList.slice(3, 6).map((car, index) => (
-                    <div key={index} className="col-12 col-md-6 col-lg-4">
-                      <CarCard car={car} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-      <button
-        className="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-      >
-        <span className="carousel-control-prev-icon" aria-hidden="true" />
-        <span className="visually-hidden">Previous</span>
-      </button>
-      <button
-        className="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <span className="carousel-control-next-icon" aria-hidden="true" />
-        <span className="visually-hidden">Next</span>
-      </button>
-    </div>
-  </div>
-</section>
+            <div className="carousel-inner">
+              {carList && carList.length > 0 && generateCarouselItems(carList)}
+            </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselOffers"
+              data-bs-slide="prev"
+            >
+              <span className="carousel-control-prev-icon" aria-hidden="true" />
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselOffers"
+              data-bs-slide="next"
+            >
+              <span className="carousel-control-next-icon" aria-hidden="true" />
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </section>
 
       
       <section className="newsletter">
@@ -221,76 +205,42 @@ console.log("latest",carList)
             <h2>NEW ARRIVALS</h2>
             <hr />
           </div>
-       
-          <div id="carouselExampleIndicators" className="carousel slide">
-      <div className="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to={0}
-          className="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        />
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to={1}
-          aria-label="Slide 2"
-        />
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to={2}
-          aria-label="Slide 3"
-        />
-      </div>
-      <div className="carousel-inner">
-        {/* Ensure `latest` is an array and has enough items */}
-        {carList && carList.length > 0 && (
-          <>
-            <div className="carousel-item active">
-              <div className="row mt-5">
-                {carList.slice(6, 9).map((car, index) => (
-                  <div key={index} className="col-12 col-md-6 col-lg-4">
-                    <CarCard car={car} />
-                  </div>
-                ))}
-              </div>
+          <div id="carouselNewArrivals" className="carousel slide" data-bs-ride="carousel">
+            <div className="carousel-indicators">
+              {carList && carList.length > 0 && generateCarouselItems(carList.slice(6)).map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  data-bs-target="#carouselNewArrivals"
+                  data-bs-slide-to={index}
+                  className={index === 0 ? 'active' : ''}
+                  aria-current={index === 0 ? 'true' : 'false'}
+                  aria-label={`Slide ${index + 1}`}
+                />
+              ))}
             </div>
-            {carList.length > 3 && (
-              <div className="carousel-item">
-                <div className="row mt-5">
-                  {carList.slice(9, 12).map((car, index) => (
-                    <div key={index} className="col-12 col-md-6 col-lg-4">
-                      <CarCard car={car} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-      <button
-        className="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-      >
-        <span className="carousel-control-prev-icon" aria-hidden="true" />
-        <span className="visually-hidden">Previous</span>
-      </button>
-      <button
-        className="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <span className="carousel-control-next-icon" aria-hidden="true" />
-        <span className="visually-hidden">Next</span>
-      </button>
-    </div>
+            <div className="carousel-inner">
+              {carList && carList.length > 0 && generateCarouselItems(carList.slice(6))}
+            </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselNewArrivals"
+              data-bs-slide="prev"
+            >
+              <span className="carousel-control-prev-icon" aria-hidden="true" />
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselNewArrivals"
+              data-bs-slide="next"
+            >
+              <span className="carousel-control-next-icon" aria-hidden="true" />
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
       </section>
 

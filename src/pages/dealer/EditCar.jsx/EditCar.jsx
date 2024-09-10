@@ -15,13 +15,14 @@ const EditCar = () => {
     make: '',
     model: '',
     fuelType: '',
+    type: '',
+    location: '',
     color: '',
     transmission: '',
     seating: '',
     mileage: '',
     rentPerHour: '',
-    description: '',
-    images : ""
+    description: ''
   });
 
   useEffect(() => {
@@ -34,14 +35,16 @@ const EditCar = () => {
           make: response.data.data.make,
           model: response.data.data.model,
           fuelType: response.data.data.fuelType,
+          type: response.data.data.type,
+          location: response.data.data.location,
           color: response.data.data.color,
           transmission: response.data.data.transmission,
           seating: response.data.data.seating,
           mileage: response.data.data.mileage,
           rentPerHour: response.data.data.rentPerHour,
-          description: response.data.data.description,
-          images: response.data.data.images
+          description: response.data.data.description
         });
+        setImagePreviews(response.data.data.images || []);
       } catch (error) {
         console.error("Error fetching car details:", error);
         toast.error("Failed to fetch car details. Please try again.");
@@ -63,7 +66,7 @@ const EditCar = () => {
     const files = Array.from(event.target.files);
     const previews = files.map(file => URL.createObjectURL(file));
     setImageFiles(files);
-    setImagePreviews(previews);
+    setImagePreviews(prevPreviews => [...prevPreviews, ...previews]);
   };
 
   const handleRemoveImage = (index) => {
@@ -76,29 +79,28 @@ const EditCar = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const formDataToSend = new FormData();
+      
+    console.log("form dataaaa",formData)
+    // Append regular fields
+    for (const key in formData) {
+      if (formData.hasOwnProperty(key)) {
+        formDataToSend.append(key, formData[key]);
+      }
+    }
+
+    // Append files
+    imageFiles.forEach(file => {
+      formDataToSend.append('images', file);
+    });
+
     try {
-      // const formDataToSend = new FormData();
-  
-      // // Append regular fields
-      // for (const key in formData) {
-      //   if (formData.hasOwnProperty(key)) {
-      //     formDataToSend.append(key, formData[key]);
-      //   }
-      // }
-  
-      // // Append files
-      // imageFiles.forEach(file => {
-      //   formDataToSend.append('images', file);
-      // });
-  
-      console.log("FormData contents:", formData);
-  
-      const response = await axiosInstance.put(`/car/update/${id}`, formData, {
+      const response = await axiosInstance.put(`/car/update/${id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-  
+
       console.log(response);
       toast.success("Car updated successfully!");
       navigate(`/dealer/inventory`);
@@ -123,6 +125,7 @@ const EditCar = () => {
           <form id="edit-car-form" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-6">
+                {/* Form fields for car details */}
                 <div className="form-group">
                   <label htmlFor="name">Car Name</label>
                   <input
@@ -164,20 +167,15 @@ const EditCar = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="fuelType">Fuel Type</label>
-                  <select
+                  <input
                     className="form-control"
                     id="fuelType"
                     name="fuelType"
                     value={formData.fuelType}
                     onChange={handleInputChange}
                     required
-                  >
-                    <option value="">Select Fuel Type</option>
-                    <option value="Gasoline">Gasoline</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="Electric">Electric</option>
-                    <option value="Hybrid">Hybrid</option>
-                  </select>
+                  />
+                  
                 </div>
                 <div className="form-group">
                   <label htmlFor="color">Color</label>
@@ -189,6 +187,19 @@ const EditCar = () => {
                     value={formData.color}
                     onChange={handleInputChange}
                     placeholder="Enter car color"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="type">Type</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="type"
+                    name="type"
+                    value={formData.type}
+                    onChange={handleInputChange}
+                    placeholder="Enter car type"
                     required
                   />
                 </div>
@@ -221,6 +232,7 @@ const EditCar = () => {
                 </div>
               </div>
               <div className="col-md-6">
+                {/* Additional form fields */}
                 <div className="form-group">
                   <label htmlFor="seating">Seating Capacity</label>
                   <select
@@ -261,6 +273,19 @@ const EditCar = () => {
                     value={formData.rentPerHour}
                     onChange={handleInputChange}
                     placeholder="Enter rent per hour"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="location">Location</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
+                    placeholder="Enter location"
                     required
                   />
                 </div>

@@ -99,7 +99,7 @@ const userLogout = async()=>{
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" onClick={userLogout}>Logout</Link>
+          <Link className="nav-link logout-link" onClick={userLogout}>Logout</Link>
         </li>
         
       </ul>
